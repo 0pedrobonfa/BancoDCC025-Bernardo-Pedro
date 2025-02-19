@@ -108,9 +108,11 @@ public class JanelaLogin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(textLogin.getText().equals("usuario") && textSenha.getPassword().equals("123")){
+        String password = new String(textSenha.getPassword());
+    
+        if (textLogin.getText().equals("admin") && password.equals("123")) {
             JOptionPane.showMessageDialog(null, "Acesso permitido");
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Acesso negado");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
