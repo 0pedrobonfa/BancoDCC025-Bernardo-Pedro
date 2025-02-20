@@ -28,6 +28,8 @@ public class JanelaLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         textLogin = new javax.swing.JTextField();
@@ -110,9 +112,19 @@ public class JanelaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         String password = new String(textSenha.getPassword());
     
-        if (textLogin.getText().equals("admin") && password.equals("123")) {
-            JOptionPane.showMessageDialog(null, "Acesso permitido");
-        } else {
+        if (textLogin.getText().equals("gerente") && password.equals("gerente")) {
+            JOptionPane.showMessageDialog(null, "Acesso permitido ao gerente");
+            //criar método que desenha visual do Gerente
+        }
+        else if(textLogin.getText().equals("caixa") && password.equals("caixa")){
+            JOptionPane.showMessageDialog(null, "Acesso permitido ao caixa");
+            //criar método que desenha visual do Caixa
+        }
+        else if(textLogin.getText().equals("cliente") && password.equals("cliente")){
+            JOptionPane.showMessageDialog(null, "Acesso permitido ao cliente");
+            //criar método que desenha visual do Cliente
+        }
+        else {
             JOptionPane.showMessageDialog(null, "Acesso negado");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -153,6 +165,8 @@ public class JanelaLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
