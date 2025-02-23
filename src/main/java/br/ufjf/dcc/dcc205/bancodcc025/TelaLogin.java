@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TelaLogin {
+public class TelaLogin{
     //Atributos privados da classe TelaLogin
     private JFrame tela;
     private final int WIDTH = 500;
@@ -71,8 +71,11 @@ public class TelaLogin {
 
                 //Validação simples
                 if ("cliente".equals(user) && "cliente".equals(senha)) {
-                    JOptionPane.showMessageDialog(desenhaAreaLogin(),"CLIENTE, seja bem vindo!");
-                    // Abrir nova janela para Cliente, Caixa ou Gerente
+                    //JOptionPane.showMessageDialog(desenhaAreaLogin(),"CLIENTE, seja bem vindo!");
+                    // Abrir nova janela para Cliente
+                    tela.setVisible(false);
+                    Cliente cliente = new Cliente("Arthur", 1001);
+                    cliente.telaUsuario();
                 }
                 else if ("caixa".equals(user) && "caixa".equals(senha)){
                     JOptionPane.showMessageDialog(desenhaAreaLogin(),"CAIXA, seja bem vindo!");

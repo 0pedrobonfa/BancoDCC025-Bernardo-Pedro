@@ -6,11 +6,10 @@ public class BancoDCC025 {
     public static void main(String[] args) {
         System.out.println("Iniciando Banco...");
 
-        //Cria tela de login
+        //Cria tela de login - inicia app
         TelaLogin janela = new TelaLogin();
         janela.iniciaTela();
 
-        //System.out.println("Fechando Banco...\nVolte sempre!");
 
     }
 }
