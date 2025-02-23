@@ -6,6 +6,8 @@ package br.ufjf.dcc.dcc205.bancodcc025;
  */
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class TelaLogin {
     //Atributos privados da classe TelaLogin
@@ -59,6 +61,28 @@ public class TelaLogin {
         grid.gridx = 1;
         grid.gridy = 2;
         areaLoginContainer.add(entrarButton, grid);
+
+        //adiciona lógica do botão
+        entrarButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String user = userTextField.getText();
+                String senha = new String(senhaTextField.getPassword());
+
+                //Validação simples
+                if ("cliente".equals(user) && "cliente".equals(senha)) {
+                    JOptionPane.showMessageDialog(desenhaAreaLogin(),"CLIENTE, seja bem vindo!");
+                    // Abrir nova janela para Cliente, Caixa ou Gerente
+                }
+                else if ("caixa".equals(user) && "caixa".equals(senha)){
+                    JOptionPane.showMessageDialog(desenhaAreaLogin(),"CAIXA, seja bem vindo!");
+                }
+                else if ("gerente".equals(user) && "gerente".equals(senha)) {
+                    JOptionPane.showMessageDialog(desenhaAreaLogin(),"GERENTE, seja bem vindo!");
+
+                }else {
+                    JOptionPane.showMessageDialog(desenhaAreaLogin(),"Usuário ou senha incorretos!");
+                }}});
 
         return areaLoginContainer;
     }
