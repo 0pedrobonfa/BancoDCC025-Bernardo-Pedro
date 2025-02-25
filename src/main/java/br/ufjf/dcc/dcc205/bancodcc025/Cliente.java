@@ -8,9 +8,9 @@ import java.awt.event.ActionListener;
 public class Cliente extends Usuario{
     //Atributos da classe Cliente
     public String nome;//nome do usuário
-    private int numConta;//numero da conta
-    private String password;//senha da conta
-    private double saldoAtual;
+    private final int numConta;//numero da conta
+    private final String password;//senha da conta
+    private final double saldoAtual;
 
     //construtor
     public Cliente(String name, int conta, double saldo, String senha){
@@ -120,7 +120,7 @@ public class Cliente extends Usuario{
                 painelSE.add(mostraExtrato);
 
                 //mostra extrato
-
+                //apresenta movimentações bancárias
 
                 telaSaldoExt.add(painelSE);
 
@@ -133,6 +133,61 @@ public class Cliente extends Usuario{
         op3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent h) {
+                JFrame telaSaldoExt = new JFrame("Renda Fixa");
+                telaSaldoExt.setSize(500, 600);
+                telaSaldoExt.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // fecha apenas esta janela
+                telaSaldoExt.setVisible(true);
+
+                JPanel painelCDB = new JPanel();
+                painelCDB.setLayout(new BoxLayout(painelCDB, BoxLayout.Y_AXIS)); // faz o layout ser vertical
+
+                //seleção do tipo de cdb
+                JLabel cdbLabel = new JLabel("Selecione o tipo de CDB:");
+                painelCDB.add(cdbLabel);
+
+                JRadioButton cdb100 = new JRadioButton("CDB 100% Pré-fixado");
+                JRadioButton cdb110 = new JRadioButton("CDB 110% Pré-fixado");
+                JRadioButton cdb120 = new JRadioButton("CDB 120% Pré-fixado");
+
+                ButtonGroup grupoCDB = new ButtonGroup();
+                grupoCDB.add(cdb100);
+                grupoCDB.add(cdb110);
+                grupoCDB.add(cdb120);
+
+                painelCDB.add(cdb100);
+                painelCDB.add(cdb110);
+                painelCDB.add(cdb120);
+
+                // campo para "Valor a ser investido"
+                JLabel valorLabel = new JLabel("Valor a ser investido:");
+                painelCDB.add(valorLabel);
+                JTextField valorTf = new JTextField(15);
+                valorTf.setMaximumSize(new Dimension(Integer.MAX_VALUE, valorTf.getPreferredSize().height)); // limita altura
+                painelCDB.add(valorTf);
+
+                // campo para "Senha"
+                JLabel senhaLabel = new JLabel("Senha:");
+                painelCDB.add(senhaLabel);
+                JTextField senhaInserida = new JTextField(15);
+                senhaInserida.setMaximumSize(new Dimension(Integer.MAX_VALUE, senhaInserida.getPreferredSize().height)); // limita altura
+                painelCDB.add(senhaInserida);
+
+                // botão para "Confirmar"
+                JButton confirmar = new JButton("Confirmar");
+                painelCDB.add(confirmar);
+                confirmar.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent h) {
+                        if (getPassword().equals(senhaInserida.getText())) {
+                            JOptionPane.showMessageDialog(telaSaldoExt, "Ação confirmada!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(telaSaldoExt, "Senha incorreta!", "Erro", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                });
+
+                telaSaldoExt.add(painelCDB);
+                telaSaldoExt.revalidate(); // atualizar a interface
             }
         });
 
@@ -153,8 +208,6 @@ public class Cliente extends Usuario{
             public void actionPerformed(ActionEvent j) {
             }
         });
-
-
 
 
         janelaCliente.add(painelCliente);

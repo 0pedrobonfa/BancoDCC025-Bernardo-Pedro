@@ -11,7 +11,7 @@ public abstract class Usuario extends JFrame {
         this.tipoDeUsuario = tipoDeUsuario;
     }
 
-    //retorna o  tipo de usuário
+    //retorna tipo de usuário
     public String getTipoDeUsuario(){
         return this.tipoDeUsuario;
     }
