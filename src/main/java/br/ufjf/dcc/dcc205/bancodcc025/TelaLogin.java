@@ -74,7 +74,7 @@ public class TelaLogin{
                     //JOptionPane.showMessageDialog(desenhaAreaLogin(),"CLIENTE, seja bem vindo!");
                     // Abrir nova janela para Cliente
                     tela.setVisible(false);
-                    Cliente cliente = new Cliente("Arthur", 1001);
+                    Cliente cliente = new Cliente("Arthur", 1001,10000.00,"admin");
                     cliente.telaUsuario();
                 }
                 else if ("caixa".equals(user) && "caixa".equals(senha)){
