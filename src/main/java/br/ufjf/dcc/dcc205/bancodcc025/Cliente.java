@@ -7,40 +7,24 @@ import java.awt.event.ActionListener;
 
 public class Cliente extends Usuario{
     //Atributos da classe Cliente
-    public String nome;//nome do usuário
-    private final int numConta;//numero da conta
-    private final String password;//senha da conta
     private final double saldoAtual;
 
     //construtor
-    public Cliente(String name, int conta, double saldo, String senha){
+    public Cliente(String nome, int numConta, double saldoAtual, String password){
+        super(nome, numConta, password);
+        this.saldoAtual = saldoAtual;
         super.setTipoDeUsuario("Cliente");
-        this.nome = name;
-        this.numConta = conta;
-        this.saldoAtual = saldo;
-        this.password = senha;
     }
 
     public double getSaldoAtual()
     {
         return this.saldoAtual;
     }
-
-    public String getPassword()
-    {
-        return password;
-    }
-
+    
     private void fazTransferencia(){
         int numContaDeDestino=0;
         double valor=0.0;
 
-    }
-
-    @Override
-    public void opercaoes() {
-        super.opercaoes();
-        fazTransferencia();
     }
 
     @Override
@@ -55,10 +39,10 @@ public class Cliente extends Usuario{
         JPanel painelCliente = new JPanel();
         painelCliente.setSize(500/2, 600/2);
 
-        JLabel nomeCliente  = new JLabel("Nome: "+this.nome);
+        JLabel nomeCliente  = new JLabel("Nome: "+getNome());
         painelCliente.add(nomeCliente);
 
-        JLabel conta = new JLabel("Número da conta: "+numConta);
+        JLabel conta = new JLabel("Número da conta: "+getNumConta());
         painelCliente.add(conta);
 
         //botão de transferência
