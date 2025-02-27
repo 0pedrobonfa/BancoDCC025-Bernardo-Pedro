@@ -20,7 +20,7 @@ public class Cliente extends Usuario{
     {
         return this.saldoAtual;
     }
-    
+
     private void fazTransferencia(){
         int numContaDeDestino=0;
         double valor=0.0;

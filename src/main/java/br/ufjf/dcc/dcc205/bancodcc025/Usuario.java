@@ -7,12 +7,14 @@ public abstract class Usuario extends JFrame {
     private final String nome;//nome do usuário
     private final int numConta;//numero da conta
     private final String password;//senha da conta
+    private final String cpf;
 
     //construtor da classe abstrata
-    public Usuario(String nome, int numConta, String password) {
+    public Usuario(String nome, int numConta, String password, String cpf) {
         this.nome = nome;
         this.numConta = numConta;
         this.password = password;
+        this.cpf = cpf;
     }
 
     //getters
@@ -24,6 +26,9 @@ public abstract class Usuario extends JFrame {
     }
     public String getPassword(){
         return this.password;
+    }
+    public String getCpf() {
+        return cpf;
     }
 
     //metodo que muda o tipo de usuário

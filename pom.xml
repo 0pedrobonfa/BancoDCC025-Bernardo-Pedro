@@ -14,7 +14,6 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
         <exec.mainClass>br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025</exec.mainClass>
     </properties>
     <dependencies>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
