@@ -75,7 +75,7 @@ public class TelaLogin{
                     // Abrir nova janela para Cliente
                     tela.setVisible(false);//fecha janela antiga
                     //cria usuário e abre tela para ele
-                    Cliente cliente = new Cliente("Arthur", 1001,10000.00,"admin");
+                    Cliente cliente = new Cliente("Arthur", 1001,10000.00,"admin", "123.456.789-01");
                     cliente.telaUsuario();
                 }
                 else if ("caixa".equals(user) && "caixa".equals(senha)){

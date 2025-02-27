@@ -10,8 +10,8 @@ public class Cliente extends Usuario{
     private final double saldoAtual;
 
     //construtor
-    public Cliente(String nome, int numConta, double saldoAtual, String password){
-        super(nome, numConta, password);
+    public Cliente(String nome, int numConta, double saldoAtual, String password, String cpf){
+        super(nome, numConta, password, cpf);
         this.saldoAtual = saldoAtual;
         super.setTipoDeUsuario("Cliente");
     }
@@ -181,6 +181,59 @@ public class Cliente extends Usuario{
         op4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent i) {
+                JFrame telaRendaVar = new JFrame("Investimento em Renda Variável");
+                telaRendaVar.setSize(500, 600);
+                telaRendaVar.setLayout(new GridLayout(3, 1)); // 3 linhas, 1 coluna
+
+                // Mensagem de boas-vindas
+                JLabel msgBoasVindas = new JLabel("Aqui você pode investir!");
+                telaRendaVar.add(msgBoasVindas);
+
+                // Cria um painel para as opções
+                JPanel painelOpcoes = new JPanel();
+                JLabel optLabel = new JLabel("Selecione seus ativos abaixo:");
+                painelOpcoes.add(optLabel);
+
+                JRadioButton fundo1 = new JRadioButton("Fundo 1");
+                JRadioButton fundo2 = new JRadioButton("Fundo 2");
+                JRadioButton fundo3 = new JRadioButton("Fundo 3");
+                JRadioButton carteira1 = new JRadioButton("Carteira 1");
+                JRadioButton carteira2 = new JRadioButton("Carteira 2");
+                JRadioButton carteira3 = new JRadioButton("Carteira 3");
+
+                ButtonGroup grupoInv = new ButtonGroup();
+                grupoInv.add(fundo1);
+                grupoInv.add(fundo2);
+                grupoInv.add(fundo3);
+                grupoInv.add(carteira1);
+                grupoInv.add(carteira2);
+                grupoInv.add(carteira3);
+
+                painelOpcoes.add(fundo1);
+                painelOpcoes.add(fundo2);
+                painelOpcoes.add(fundo3);
+                painelOpcoes.add(carteira1);
+                painelOpcoes.add(carteira2);
+                painelOpcoes.add(carteira3);
+
+                telaRendaVar.add(painelOpcoes);
+
+                // Painel de senha
+                JPanel painelSenha = new JPanel();
+                JLabel senhaLabel = new JLabel("Para confirmar sua operação, digite sua senha: ");
+                JPasswordField senhaPassField = new JPasswordField(15);
+                painelSenha.add(senhaLabel);
+                painelSenha.add(senhaPassField);
+
+                JButton confirma = new JButton("Confirma");
+                painelSenha.add(confirma);
+
+                telaRendaVar.add(painelSenha);
+
+                // Exibe a janela
+                telaRendaVar.setVisible(true);
+
+
             }
         });
 
