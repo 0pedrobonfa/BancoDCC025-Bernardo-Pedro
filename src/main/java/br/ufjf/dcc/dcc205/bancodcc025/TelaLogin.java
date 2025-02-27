@@ -36,9 +36,9 @@ public class TelaLogin{
         grid.insets = new Insets(5, 5, 5, 5);//Espaçamento entre os componentes
 
         JLabel userLabel = new JLabel("Login");
-        JTextField userTextField = new JTextField(15);
+        JTextField userTextField = new JTextField("cliente");
         JLabel senhaLabel = new JLabel("Senha");
-        JPasswordField senhaTextField = new JPasswordField(15);
+        JPasswordField senhaTextField = new JPasswordField("cliente");
         JButton entrarButton = new JButton("Entrar");
 
         //Aloca cada componente em seu lugar

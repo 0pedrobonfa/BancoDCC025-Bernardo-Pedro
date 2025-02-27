@@ -37,7 +37,7 @@ public class Cliente extends Usuario{
         janelaCliente.setVisible(true);
 
         JPanel painelCliente = new JPanel();
-        painelCliente.setSize(500/2, 600/2);
+        //painelCliente.setSize(500/2, 600/2);
 
         JLabel nomeCliente  = new JLabel("Nome: "+getNome());
         painelCliente.add(nomeCliente);
@@ -243,6 +243,30 @@ public class Cliente extends Usuario{
         op5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent j) {
+
+                JFrame telaSolicitaCredito = new JFrame("Solicitar Crédito");
+                telaSolicitaCredito.setSize(500,600);
+                telaSolicitaCredito.setVisible(true);
+
+                JPanel painelSolicitacao = new JPanel();
+                JLabel contrato = new JLabel("Leia atentamente os termos abaixo: ");
+                JLabel textoContrato = new JLabel("Como foi combinado anteriormente -> Aqui vai o texto do cliente");
+                painelSolicitacao.add(contrato);
+                painelSolicitacao.add(textoContrato);
+
+                JLabel senhaTxt = new JLabel("Ao inserir sua senha a seguir, você estará concordando com os termos:");
+                JPasswordField senhaConfirmacao = new JPasswordField(15);
+                JButton confirma = new JButton("Confirma Ação");
+                // PARAFAZER ação do botão para verificar senha do usuário
+
+                painelSolicitacao.add(senhaTxt);
+                painelSolicitacao.add(senhaConfirmacao);
+                painelSolicitacao.add(confirma);
+
+
+
+                telaSolicitaCredito.add(painelSolicitacao);
+
             }
         });
 
