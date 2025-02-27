@@ -79,7 +79,12 @@ public class TelaLogin{
                     cliente.telaUsuario();
                 }
                 else if ("caixa".equals(user) && "caixa".equals(senha)){
-                    JOptionPane.showMessageDialog(desenhaAreaLogin(),"CAIXA, seja bem vindo!");
+                    //JOptionPane.showMessageDialog(desenhaAreaLogin(),"CAIXA, seja bem vindo!");
+                    // Abrir nova janela para Cliente
+                    tela.setVisible(false);//fecha janela antiga
+                    //cria usuário e abre tela para ele
+                    Caixa caixa = new Caixa("Leornardo", 2001, "admin", "123.456.789-10");
+                    caixa.telaUsuario();
                 }
                 else if ("gerente".equals(user) && "gerente".equals(senha)) {
                     JOptionPane.showMessageDialog(desenhaAreaLogin(),"GERENTE, seja bem vindo!");
