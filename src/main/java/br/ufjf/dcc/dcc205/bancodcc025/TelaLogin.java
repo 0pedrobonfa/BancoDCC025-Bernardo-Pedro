@@ -40,6 +40,7 @@ public class TelaLogin{
         JLabel senhaLabel = new JLabel("Senha");
         JPasswordField senhaTextField = new JPasswordField("cliente");
         JButton entrarButton = new JButton("Entrar");
+        JButton novoCadastroButton = new JButton("Novo Cadastro");
 
         //Aloca cada componente em seu lugar
         grid.gridx = 0;
@@ -61,6 +62,10 @@ public class TelaLogin{
         grid.gridx = 1;
         grid.gridy = 2;
         areaLoginContainer.add(entrarButton, grid);
+
+        grid.gridx = 2;
+        grid.gridy = 2;
+        areaLoginContainer.add(novoCadastroButton,grid);
 
         //adiciona lógica do botão
         entrarButton.addActionListener(new ActionListener(){
@@ -88,6 +93,14 @@ public class TelaLogin{
                     JOptionPane.showMessageDialog(desenhaAreaLogin(),"Usuário ou senha incorretos!");
                 }}});
 
+        novoCadastroButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent f) {
+
+                GerenciaUsuarios gerenciador = new GerenciaUsuarios();
+                gerenciador.cadastraUsuario();
+            }
+        });
         return areaLoginContainer;
     }
 }
