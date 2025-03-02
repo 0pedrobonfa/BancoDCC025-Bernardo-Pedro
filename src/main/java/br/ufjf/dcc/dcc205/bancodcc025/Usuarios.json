@@ -4,9 +4,9 @@
       "tipoDeUsuario": "cliente",
       "cpf": "123.456.789-09",
       "nome": "Arthur",
+      "saldoAtual": 1000.00,
       "senha": "cliente",
       "numConta": "1001",
-      "saldo": "1000.00",
       "extrato": [
         {
           "data": "",
@@ -26,7 +26,7 @@
       "tipoDeUsuario": "cliente",
       "cpf": "987.654.321-08",
       "nome": "Ricardo",
-      "senha": "cliente",
+      "saldoAtual": 100.00,
       "numConta": "1002",
       "saldo": "2000.00",
       "extrato": [

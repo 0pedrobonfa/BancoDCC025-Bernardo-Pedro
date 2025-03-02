@@ -97,8 +97,8 @@ public class TelaLogin{
             @Override
             public void actionPerformed(ActionEvent f) {
 
-                GerenciaUsuarios gerenciador = new GerenciaUsuarios();
-                gerenciador.cadastraUsuario();
+//                GerenciaArquivos gerenciador = new GerenciaArquivos();
+//                gerenciador.exibirUsuarios();
             }
         });
         return areaLoginContainer;

@@ -4,10 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Cliente extends Usuario{
     //Atributos da classe Cliente
     private final double saldoAtual;
+    private List<Transacao> extratos = new ArrayList<>();
 
     //construtor
     public Cliente(String nome, int numConta, double saldoAtual, String password, String cpf){
@@ -20,6 +23,10 @@ public class Cliente extends Usuario{
     {
         return this.saldoAtual;
     }
+
+//    public List<ArrayList> getExtrato() {
+//        return extratos;
+//    }
 
     private void fazTransferencia(){
         int numContaDeDestino=0;
@@ -275,5 +282,17 @@ public class Cliente extends Usuario{
 
 
     }
-
+    @Override
+    public String toString(){
+        return "    {" +
+                "\"tipoDeUsuario\":\"" + getTipoDeUsuario() + "\"," +
+                "\"nome\":\"" + getNome() + "\"," +
+                "\"senha\":\"" + getPassword() + "\"," +
+                "\"numConta\":\"" + getNumConta() + "\"," +
+                "\"cpf\":\"" + getCpf() + "\"," +
+                "\"saldo\":\"" + getSaldoAtual() + "\"," +
+//                "\"extrato\":" + getExtrato() +
+                "}";
+    }
 }
+

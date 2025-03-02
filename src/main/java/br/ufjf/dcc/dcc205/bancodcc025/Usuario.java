@@ -2,7 +2,7 @@ package br.ufjf.dcc.dcc205.bancodcc025;
 
 import javax.swing.*;
 
-public abstract class Usuario extends JFrame {
+public abstract class Usuario{
     private String tipoDeUsuario;
     private final String nome;//nome do usuário
     private final int numConta;//numero da conta
