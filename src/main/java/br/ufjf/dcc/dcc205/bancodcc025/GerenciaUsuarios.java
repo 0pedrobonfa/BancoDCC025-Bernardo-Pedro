@@ -5,9 +5,45 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GerenciaUsuarios {
+    //Atributos
+    private int numContasCliente;
+    private int numContasCaixa;
+    private int numContasGerente;
 
     //construtor
-    public GerenciaUsuarios(){}
+    public GerenciaUsuarios(){
+        this.numContasCliente = 1002;
+        this.numContasCaixa =100;
+        this.numContasGerente=200;
+    }
+    //getters
+    public int getNumContasCliente() {return numContasCliente;}
+    public int getNumContasCaixa() {return numContasCaixa;}
+    public int getNumContasGerente() {return numContasGerente;}
+
+    //setters
+    public void setNumContasCliente(int numContasCliente) {this.numContasCliente = numContasCliente;}
+    public void setNumContasCaixa(int numContasCaixa) {this.numContasCaixa = numContasCaixa;}
+    public void setNumContasGerente(int numContasGerente) {this.numContasGerente = numContasGerente;}
+
+    //metodos para calculo do numéro da conta do usuário
+    private int calculaNumContaCliente(){
+
+        int numAtual = getNumContasCliente();
+        setNumContasCliente(numAtual+1);
+        return numAtual+1;
+
+    }
+    private int calculaNumContaCaixa(){
+        int numAtual = getNumContasCaixa();
+        setNumContasCaixa(numAtual+1);
+        return numAtual+1;
+    }
+    private int calculaNumContaGerente(){
+        int numAtual = getNumContasGerente();
+        setNumContasGerente(numAtual+1);
+        return numAtual+1;
+    }
 
     //metodo que vai cadastrar novos usuários
     // - Escrevendo eles no json
@@ -83,8 +119,7 @@ public class GerenciaUsuarios {
                 // Criando um novo usuário conforme o tipo
                 Usuario novoUsuario;
                 if (tipoUsuario.equals("cliente")) {
-                    novoUsuario = new Cliente(nome, 1008, 0.0,senha, cpf);
-
+                    novoUsuario = new Cliente(nome, calculaNumContaCliente(), 0.0,senha, cpf);
                     String filePath = "/home/pedrobonfa/Codes/java/BancoDCC025-Bernardo-Pedro/src/main/java/br/ufjf/dcc/dcc205/bancodcc025/Usuarios.json";
                     Arquivo arquivo = new Arquivo();
                     arquivo.adicionaUsuario(filePath, novoUsuario);
