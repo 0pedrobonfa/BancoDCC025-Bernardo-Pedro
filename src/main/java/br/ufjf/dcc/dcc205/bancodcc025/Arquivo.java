@@ -1,9 +1,11 @@
 package br.ufjf.dcc.dcc205.bancodcc025;
+
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +48,47 @@ public class Arquivo {
             e.printStackTrace();
         }
     }
+    public void adicionaUsuario(String filePath, Usuario novoUsuario) {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Usuario.class, new UsuarioTypeAdapter())
+                .setPrettyPrinting()
+                .create();
+
+        List<Usuario> usuarios;
+
+        try {
+            File arquivo = new File(filePath);
+            if (arquivo.exists()) {
+                BufferedReader reader = new BufferedReader(new FileReader(filePath));
+                Type type = new TypeToken<Map<String, List<Usuario>>>() {}.getType();
+                Map<String, List<Usuario>> jsonMap = gson.fromJson(reader, type);
+                reader.close();
+
+                // Obtém a lista de usuários (caso exista)
+                usuarios = jsonMap.get("usuarios");
+                if (usuarios == null) {
+                    usuarios = new ArrayList<>();
+                }
+            } else {
+                // Se o arquivo não existir, cria uma nova lista
+                usuarios = new ArrayList<>();
+            }
+
+            // Adiciona o novo usuário
+            usuarios.add(novoUsuario);
+
+            // Atualiza o JSON
+            Map<String, List<Usuario>> novoJson = Map.of("usuarios", usuarios);
+            String jsonAtualizado = gson.toJson(novoJson);
+
+            // Salva no arquivo
+            salva(filePath, jsonAtualizado);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 
 class UsuarioTypeAdapter implements JsonDeserializer<Usuario> {

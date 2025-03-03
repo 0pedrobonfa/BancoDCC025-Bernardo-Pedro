@@ -1,60 +1,18 @@
 {
   "usuarios": [
     {
+      "saldoAtual": 1000.0,
       "tipoDeUsuario": "cliente",
-      "cpf": "123.456.789-09",
       "nome": "Arthur",
-      "saldoAtual": 1000.00,
-      "senha": "cliente",
-      "numConta": "1001",
-      "extrato": [
-        {
-          "data": "",
-          "descricao": "Depósito inicial",
-          "valor": 1000.00,
-          "tipo": "débito"
-        },
-        {
-          "data": "",
-          "descricao": "Compra no mercado",
-          "valor": 150.50,
-          "tipo": "debito"
-        }
-      ]
+      "numConta": 1001,
+      "cpf": "123.456.789-09"
     },
     {
+      "saldoAtual": 100.0,
       "tipoDeUsuario": "cliente",
-      "cpf": "987.654.321-08",
       "nome": "Ricardo",
-      "saldoAtual": 100.00,
-      "numConta": "1002",
-      "saldo": "2000.00",
-      "extrato": [
-        {
-          "data": "01/03/2025",
-          "descricao": "Salário",
-          "valor": 2000.00,
-          "tipo": "débito"
-        },
-        {
-          "data": "02/03/2025",
-          "descricao": "Compra no mercado",
-          "valor": 150.50,
-          "tipo": "debito"
-        }
-      ]
-    },
-    {
-      "tipoDeUsuario": "gerente",
-      "senha": "gerencia",
-      "nome": "Evandro",
-      "numConta": "0001"
-    },
-    {
-      "tipoDeUsuario": "caixa",
-      "senha": "caixa",
-      "nome": "Augusto",
-      "numConta": "2001"
+      "numConta": 1002,
+      "cpf": "987.654.321-08"
     }
   ]
 }

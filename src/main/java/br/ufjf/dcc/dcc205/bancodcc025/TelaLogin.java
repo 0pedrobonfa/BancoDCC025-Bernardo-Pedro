@@ -96,9 +96,9 @@ public class TelaLogin{
         novoCadastroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent f) {
-
-//                GerenciaArquivos gerenciador = new GerenciaArquivos();
-//                gerenciador.exibirUsuarios();
+                tela.setVisible(false);
+                GerenciaUsuarios gerenciador = new GerenciaUsuarios();
+                gerenciador.cadastraUsuarios();
             }
         });
         return areaLoginContainer;
