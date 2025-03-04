@@ -1,6 +1,7 @@
 package br.ufjf.dcc.dcc205.bancodcc025.model;
 
 import br.ufjf.dcc.dcc205.bancodcc025.Transacao;
+import br.ufjf.dcc.dcc205.bancodcc025.persistence.ClientePersistence;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class Cliente extends Usuario {
     //Atributos da classe Cliente
-    private final double saldoAtual;
+    private double saldoAtual;
     private List<Transacao> extratos = new ArrayList<>();
 
     //construtor
@@ -21,25 +22,27 @@ public class Cliente extends Usuario {
         super.setTipoDeUsuario("Cliente");
     }
 
+    public void setSaldoAtual(double novoSaldo){
+        this.saldoAtual = novoSaldo;
+    }
+    @Override
+    public int getNumConta() {
+        return super.getNumConta();
+    }
+
     public double getSaldoAtual()
     {
         return this.saldoAtual;
     }
 
-//    public List<ArrayList> getExtrato() {
-//        return extratos;
-//    }
-
-    private void fazTransferencia(){
-        int numContaDeDestino=0;
-        double valor=0.0;
-
+    public List<Transacao> getExtratos() {
+        return extratos;
     }
 
     @Override
     public void telaUsuario() {
         super.telaUsuario();
-        //criar painel da tela do usuário com todas as opções
+        //cria painel da tela do usuário com todas as opções
         JFrame janelaCliente = new JFrame("Cliente");
         janelaCliente.setSize(500, 600);
         janelaCliente.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,10 +69,10 @@ public class Cliente extends Usuario {
 
                 JPanel painelTrans = new JPanel();
 
-                JLabel transConta = new JLabel("Quem vai receber: ");
+                JLabel transConta = new JLabel("Quem vai receber: [N° Conta]");
                 painelTrans.add(transConta);
-                JTextField contaNova = new JTextField(15);
-                painelTrans.add(contaNova);
+                JTextField tfContaDestino = new JTextField(15);
+                painelTrans.add(tfContaDestino);
 
                 JLabel valorTransferido = new JLabel("Valor a ser transferido: ");
                 painelTrans.add(valorTransferido);
@@ -81,21 +84,67 @@ public class Cliente extends Usuario {
                 painelTrans.add(senhaTransferencia);
                 painelTrans.add(senhaTf);
 
-
-                //if(senhaTransferencia.getText().equals(getPassword())){
-                    //realiza transferência
-                    //pega saldo atual, dimunui o valor
-                    //vai na conta-alvo e aumenta o valor lá
-                //}
-
                 JButton realizaTf = new JButton("Realiza Transferência");
                 painelTrans.add(realizaTf);
                 realizaTf.addActionListener(e->{
                     if(senhaTf.getText().equals(getPassword())){
-                        JOptionPane.showMessageDialog(null, "Deu certo");
-                        return;
+
+                        //pega valor em texto e converte em double
+                        String valorText = valorTf.getText();
+                        double valor = Double.parseDouble(valorText);
+
+                        //pega conta em texto e converte para int
+                        String contaDestinoText = tfContaDestino.getText();
+                        int contaDestino = Integer.parseInt(contaDestinoText);
+
+                        int numContaAtual = getNumConta();
+
+
+                        ClientePersistence clientePersistence = new ClientePersistence();
+                        List<Cliente> clientes = clientePersistence.findAll();
+
+                        //inicializa contas de origem e destino
+                        Cliente origemCliente = null;
+                        Cliente destinoCliente = null;
+
+                        // procura e seleciona contas respectivas adequadas
+                        for (Cliente c : clientes) {
+                            if (c.getNumConta() == numContaAtual) {
+                                origemCliente = c;
+                            }
+                            if (c.getNumConta() == contaDestino) {
+                                destinoCliente = c;
+                            }
+                        }
+
+                        if (origemCliente == null || destinoCliente == null) {
+                            JOptionPane.showMessageDialog(null, "Uma das contas não foi encontrada!");
+                        } else {
+                            // se o saldo da conta de origem é suficiente
+                            if (origemCliente.getSaldoAtual() >= valor) {
+                                //realiza transferência
+                                origemCliente.setSaldoAtual(origemCliente.getSaldoAtual() - valor);  // subtrai o valor da conta origem
+                                destinoCliente.setSaldoAtual(destinoCliente.getSaldoAtual() + valor);  // adiciona o valor à conta destino
+
+                                // cria transação para a conta de origem e destino
+                                Transacao transacaoOrigem = new Transacao(numContaAtual, contaDestino, valor);
+                                Transacao transacaoDestino = new Transacao(numContaAtual, contaDestino, valor);
+
+                                // adiciona a transação no extrato dos clientes
+                                origemCliente.getExtratos().add(transacaoOrigem);
+                                destinoCliente.getExtratos().add(transacaoDestino);
+
+                                //salva os clientes atualizados
+                                clientePersistence.save(clientes);
+
+                                JOptionPane.showMessageDialog(null, "Transferência realizada com sucesso!");
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Saldo insuficiente para a transferência!");
+                            }
+                        }
+
                     }else{
-                        JOptionPane.showMessageDialog(null, "Deu errado");
+                        JOptionPane.showMessageDialog(null, "Senha errada.");
                         return;
                     }
                 });
@@ -115,20 +164,38 @@ public class Cliente extends Usuario {
                 telaSaldoExt.setSize(500, 600);
                 telaSaldoExt.setVisible(true);
 
-
+                // cria painel com saldo e extrato
                 JPanel painelSE = new JPanel();
+                painelSE.setLayout(new BoxLayout(painelSE, BoxLayout.Y_AXIS));
 
-                //mostra saldo
-                JLabel mostraExtrato = new JLabel("Saldo atual: "+getSaldoAtual());
+                // mostra o saldo atual
+                JLabel mostraExtrato = new JLabel("Saldo atual: " + getSaldoAtual());
                 painelSE.add(mostraExtrato);
 
-                //mostra extrato
-                //apresenta movimentações bancárias
+                //exibe o extrato
+                List<Transacao> extrato = getExtratos();
+                if (extrato.isEmpty()) {
+                    JLabel noTransactions = new JLabel("Nenhuma transação registrada.");
+                    painelSE.add(noTransactions);
+                } else {
+                    // exibe todas as transações
+                    for (Transacao t : extrato) {
+                        // formata a transação
+                        JLabel transacaoLabel = new JLabel(
+                                "Origem: " + t.getOrigem() +
+                                " | Destino: " + t.getDestino() +
+                                " | Valor: " + t.getValor()
+                        );
+                        painelSE.add(transacaoLabel);
+                    }
+                }
 
+                //adiciona painel à janela
                 telaSaldoExt.add(painelSE);
 
             }
         });
+
 
         //botão investimento renda fixa
         JButton op3 = new JButton("Investimento renda fixa");

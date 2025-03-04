@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TelaLogin{
+    //Atributos
     private int numContasCliente;
     private int numContasCaixa;
     private int numContasGerente;
@@ -30,7 +31,7 @@ public class TelaLogin{
     private JList<Cliente> jlClientes;
     private final int WIDTH = 500;
     private final int HEIGHT = 600;
-    //construtor
+    //Construtor
     public TelaLogin(){
         this.numContasCliente = 1002;
         this.numContasCaixa = 100;
@@ -63,8 +64,6 @@ public class TelaLogin{
         setNumContasGerente(numAtual+1);
         return numAtual+1;
     }
-
-
 
     //metodo para iniciar tela de login
     public void iniciaTela() {
@@ -266,6 +265,7 @@ public class TelaLogin{
         return contatos;
     }
 
+    //metodo para fazer autenticação dos usuários
     private Usuario autenticar(String login, String senha) {
         ClientePersistence clientePersistence = new ClientePersistence();
         List<Cliente> clientes = clientePersistence.findAll();
