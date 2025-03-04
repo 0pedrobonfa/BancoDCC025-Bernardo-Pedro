@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,31 +55,28 @@ public class Arquivo {
                 .setPrettyPrinting()
                 .create();
 
-        List<Usuario> usuarios;
+        List<Usuario> usuarios = new ArrayList<>();
 
         try {
             File arquivo = new File(filePath);
-            if (arquivo.exists()) {
+            if (arquivo.exists() && arquivo.length() > 0) {  // Evita erro se o arquivo estiver vazio
                 BufferedReader reader = new BufferedReader(new FileReader(filePath));
                 Type type = new TypeToken<Map<String, List<Usuario>>>() {}.getType();
                 Map<String, List<Usuario>> jsonMap = gson.fromJson(reader, type);
                 reader.close();
 
-                // Obtém a lista de usuários (caso exista)
-                usuarios = jsonMap.get("usuarios");
-                if (usuarios == null) {
-                    usuarios = new ArrayList<>();
+                if (jsonMap != null && jsonMap.get("usuarios") != null) {
+                    usuarios = jsonMap.get("usuarios");  // Recupera os usuários já cadastrados
                 }
-            } else {
-                // Se o arquivo não existir, cria uma nova lista
-                usuarios = new ArrayList<>();
             }
 
             // Adiciona o novo usuário
             usuarios.add(novoUsuario);
 
-            // Atualiza o JSON
-            Map<String, List<Usuario>> novoJson = Map.of("usuarios", usuarios);
+            // Atualiza o JSON corretamente usando um HashMap mutável
+            Map<String, List<Usuario>> novoJson = new HashMap<>();
+            novoJson.put("usuarios", usuarios);
+
             String jsonAtualizado = gson.toJson(novoJson);
 
             // Salva no arquivo
@@ -89,21 +87,40 @@ public class Arquivo {
         }
     }
 
+
 }
 
-class UsuarioTypeAdapter implements JsonDeserializer<Usuario> {
+class UsuarioTypeAdapter implements JsonDeserializer<Usuario>, JsonSerializer<Usuario> {
     @Override
     public Usuario deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
             throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
         String tipoDeUsuario = jsonObject.get("tipoDeUsuario").getAsString();
 
-        // Decide qual classe derivada instanciar com base no tipoDeUsuario
-
-            if (tipoDeUsuario.equals("cliente")){
-                return context.deserialize(jsonObject, Cliente.class);
-            // Adicionar casos para gerente e caixa
+        if (tipoDeUsuario.equals("cliente")) {
+            return context.deserialize(jsonObject, Cliente.class);
         }
+//        else if (tipoDeUsuario.equals("caixa")) {
+//            return context.deserialize(jsonObject, Caixa.class);
+//        } else if (tipoDeUsuario.equals("gerente")) {
+//            return context.deserialize(jsonObject, Gerente.class);
+//        }
         return null;
+    }
+
+    @Override
+    public JsonElement serialize(Usuario usuario, Type typeOfSrc, JsonSerializationContext context) {
+        JsonObject jsonObject = context.serialize(usuario).getAsJsonObject();
+
+        if (usuario instanceof Cliente) {
+            jsonObject.addProperty("tipoDeUsuario", "cliente");
+        }
+//        else if (usuario instanceof Caixa) {
+//            jsonObject.addProperty("tipoDeUsuario", "caixa");
+//        } else if (usuario instanceof Gerente) {
+//            jsonObject.addProperty("tipoDeUsuario", "gerente");
+//        }
+
+        return jsonObject;
     }
 }
