@@ -1,4 +1,4 @@
-package br.ufjf.dcc.dcc205.bancodcc025;
+package br.ufjf.dcc.dcc205.bancodcc025.view;
 
 /**
  *
@@ -8,6 +8,8 @@ import br.ufjf.dcc.dcc205.bancodcc025.controller.AdicionarCliente;
 import br.ufjf.dcc.dcc205.bancodcc025.controller.GerenciarClientes;
 import br.ufjf.dcc.dcc205.bancodcc025.exception.ClienteException;
 
+import br.ufjf.dcc.dcc205.bancodcc025.model.Cliente;
+import br.ufjf.dcc.dcc205.bancodcc025.model.Usuario;
 import br.ufjf.dcc.dcc205.bancodcc025.persistence.ClientePersistence;
 
 import java.util.ArrayList;
@@ -21,11 +23,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TelaLogin{
-    //Atributos - vindos de gerenciar user
     private int numContasCliente;
     private int numContasCaixa;
     private int numContasGerente;
-    //Atributos privados da classe TelaLogin
     private JFrame tela;
     private JList<Cliente> jlClientes;
     private final int WIDTH = 500;
@@ -87,21 +87,21 @@ public class TelaLogin{
         grid.fill = GridBagConstraints.HORIZONTAL;//Faz ele preencher o espaço na horizontal
         grid.insets = new Insets(5, 5, 5, 5);//Espaçamento entre os componentes
 
-        JLabel userLabel = new JLabel("Login");
-        JTextField userTextField = new JTextField("cliente");
+        JLabel loginLabel = new JLabel("Login");
+        JTextField loginTextField = new JTextField(15);
         JLabel senhaLabel = new JLabel("Senha");
-        JPasswordField senhaTextField = new JPasswordField("cliente");
+        JPasswordField senhaTextField = new JPasswordField(15);
         JButton entrarButton = new JButton("Entrar");
         JButton novoCadastroButton = new JButton("Novo Cadastro");
 
         //Aloca cada componente em seu lugar
         grid.gridx = 0;
         grid.gridy = 0;
-        areaLoginContainer.add(userLabel, grid);
+        areaLoginContainer.add(loginLabel, grid);
 
         grid.gridx = 1;
         grid.gridy = 0;
-        areaLoginContainer.add(userTextField, grid);
+        areaLoginContainer.add(loginTextField, grid);
 
         grid.gridx = 0;
         grid.gridy = 1;
@@ -123,40 +123,43 @@ public class TelaLogin{
         entrarButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                String user = userTextField.getText();
+                String login = loginTextField.getText();
                 String senha = new String(senhaTextField.getPassword());
 
-                //Validação simples
-                if ("cliente".equals(user) && "cliente".equals(senha)) {
-                    //JOptionPane.showMessageDialog(desenhaAreaLogin(),"CLIENTE, seja bem vindo!");
-                    // Abrir nova janela para Cliente
-                    tela.setVisible(false);//fecha janela antiga
-                    //cria usuário e abre tela para ele
-                    Cliente cliente = new Cliente("Arthur", 1001,10000.00,"admin", "123.456.789-01");
-                    cliente.telaUsuario();
-                }
-                else if ("caixa".equals(user) && "caixa".equals(senha)){
-                    JOptionPane.showMessageDialog(desenhaAreaLogin(),"CAIXA, seja bem vindo!");
-                }
-                else if ("gerente".equals(user) && "gerente".equals(senha)) {
-                    JOptionPane.showMessageDialog(desenhaAreaLogin(),"GERENTE, seja bem vindo!");
+                Usuario usuario = autenticar(login, senha);
 
-                }else {
-                    JOptionPane.showMessageDialog(desenhaAreaLogin(),"Usuário ou senha incorretos!");
-                }}});
+                //Validação simples
+                if (usuario instanceof Cliente) {
+                    JOptionPane.showMessageDialog(null, "CLIENTE, seja bem-vindo!");
+                    tela.setVisible(false);
+                    ((Cliente) usuario).telaUsuario(); // Abre a tela do cliente
+                }
+//                else if (usuario instanceof Caixa) {
+//                    JOptionPane.showMessageDialog(null, "CAIXA, seja bem-vindo!");
+//                    // Abre tela de caixa
+//                }
+//                else if (usuario instanceof Gerente) {
+//                    JOptionPane.showMessageDialog(null, "GERENTE, seja bem-vindo!");
+//                    // Abre tela de gerente
+//                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!");
+                }
+            }});
 
         novoCadastroButton.addActionListener(new AdicionarCliente(this));
 
         return areaLoginContainer;
     }
 
+    //metodo para adicionar Clientes
     public void addCliente() {
         JFrame telaCadastro = new JFrame("Tela de Cadastro");
-        telaCadastro.setSize(WIDTH, HEIGHT); // Evite constantes indefinidas como WIDTH e HEIGHT
+        telaCadastro.setSize(WIDTH, HEIGHT);
         telaCadastro.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JPanel painelDeCadastro = new JPanel();
-        painelDeCadastro.setLayout(new GridLayout(0, 2, 5, 5)); // Melhor organização
+        painelDeCadastro.setLayout(new GridLayout(0, 2, 5, 5)); 
 
         JLabel userType = new JLabel("Selecione o tipo de usuário:");
         painelDeCadastro.add(userType);
@@ -217,16 +220,16 @@ public class TelaLogin{
 
                 model.addElement(novoCliente);
 
-                // Criando instância do ClientePersistence
+                // Cria instância do ClientePersistence
                 ClientePersistence clientePersistence = new ClientePersistence();
 
-                // Carregar lista de clientes existente
+                // Carrega lista de clientes existente
                 List<Cliente> clientes = clientePersistence.findAll();
 
                 // Adiciona o novo cliente à lista
                 clientes.add(novoCliente);
 
-                // Salvar a lista atualizada no JSON
+                // Salva a lista atualizada no JSON
                 clientePersistence.save(clientes);
 
                 JOptionPane.showMessageDialog(telaCadastro, "Usuário cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -240,6 +243,7 @@ public class TelaLogin{
         telaCadastro.repaint();
     }
 
+    //metodo para carregar Clientes
     public void carregaClientes(List<Cliente> clientes) {
         DefaultListModel<Cliente> model = new DefaultListModel<>();
 
@@ -250,6 +254,7 @@ public class TelaLogin{
         jlClientes.setModel(model); // Atualiza o modelo da JList
     }
 
+    //metodo para criar lista com os Clientes
     public List<Cliente> listaClientes(){
         DefaultListModel<Cliente> model = (DefaultListModel<Cliente>)jlClientes.getModel();
         List<Cliente> contatos = new ArrayList<>();
@@ -259,6 +264,28 @@ public class TelaLogin{
         }
 
         return contatos;
+    }
+
+    private Usuario autenticar(String login, String senha) {
+        ClientePersistence clientePersistence = new ClientePersistence();
+        List<Cliente> clientes = clientePersistence.findAll();
+
+        // Verifica se o cliente atual está registrado
+        for (Cliente c : clientes) {
+            if (c.getNome().equals(login) && c.getPassword().equals(senha)) {
+                return c;
+            }
+        }
+
+        // Verifica se é um caixa ou gerente fixo
+//        if ("caixa".equals(login) && "caixa".equals(senha)) {
+//            return new Caixa();
+//        }
+//        if ("gerente".equals(login) && "gerente".equals(senha)) {
+//            return new Gerente();
+//        }
+
+        return null;
     }
 
 }

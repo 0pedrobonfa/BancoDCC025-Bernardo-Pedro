@@ -1,8 +1,8 @@
 package br.ufjf.dcc.dcc205.bancodcc025.controller;
 
 
-import br.ufjf.dcc.dcc205.bancodcc025.Cliente;
-import br.ufjf.dcc.dcc205.bancodcc025.TelaLogin;
+import br.ufjf.dcc.dcc205.bancodcc025.model.Cliente;
+import br.ufjf.dcc.dcc205.bancodcc025.view.TelaLogin;
 import br.ufjf.dcc.dcc205.bancodcc025.persistence.ClientePersistence;
 import br.ufjf.dcc.dcc205.bancodcc025.persistence.Persistence;
 

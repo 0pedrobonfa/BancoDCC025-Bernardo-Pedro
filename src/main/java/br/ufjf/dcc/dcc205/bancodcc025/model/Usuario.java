@@ -1,6 +1,4 @@
-package br.ufjf.dcc.dcc205.bancodcc025;
-
-import javax.swing.*;
+package br.ufjf.dcc.dcc205.bancodcc025.model;
 
 public abstract class Usuario{
     private String tipoDeUsuario;
@@ -39,6 +37,6 @@ public abstract class Usuario{
     public String getTipoDeUsuario(){
         return this.tipoDeUsuario;
     }
-    
+
     public void telaUsuario(){}
 }

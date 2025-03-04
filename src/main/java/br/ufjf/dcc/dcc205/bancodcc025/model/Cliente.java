@@ -1,4 +1,6 @@
-package br.ufjf.dcc.dcc205.bancodcc025;
+package br.ufjf.dcc.dcc205.bancodcc025.model;
+
+import br.ufjf.dcc.dcc205.bancodcc025.Transacao;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cliente extends Usuario{
+public class Cliente extends Usuario {
     //Atributos da classe Cliente
     private final double saldoAtual;
     private List<Transacao> extratos = new ArrayList<>();
@@ -75,9 +77,10 @@ public class Cliente extends Usuario{
                 painelTrans.add(valorTf);
 
                 JLabel senhaTransferencia = new JLabel("Senha para confirmar a transferência: ");
+                JPasswordField senhaTf = new JPasswordField(15);
                 painelTrans.add(senhaTransferencia);
-                JTextField senhaTf = new JTextField(15);
                 painelTrans.add(senhaTf);
+
 
                 //if(senhaTransferencia.getText().equals(getPassword())){
                     //realiza transferência
@@ -87,6 +90,15 @@ public class Cliente extends Usuario{
 
                 JButton realizaTf = new JButton("Realiza Transferência");
                 painelTrans.add(realizaTf);
+                realizaTf.addActionListener(e->{
+                    if(senhaTf.getText().equals(getPassword())){
+                        JOptionPane.showMessageDialog(null, "Deu certo");
+                        return;
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Deu errado");
+                        return;
+                    }
+                });
 
                 telaTransferencia.add(painelTrans);
 

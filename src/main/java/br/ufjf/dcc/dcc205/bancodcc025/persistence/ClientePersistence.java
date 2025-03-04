@@ -1,6 +1,6 @@
 package br.ufjf.dcc.dcc205.bancodcc025.persistence;
 
-import br.ufjf.dcc.dcc205.bancodcc025.Cliente;
+import br.ufjf.dcc.dcc205.bancodcc025.model.Cliente;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -17,8 +17,8 @@ public class ClientePersistence implements Persistence<Cliente> {
         Gson gson = new Gson();
         String json = gson.toJson(itens);
 
-        System.out.println("JSON gerado: " + json);
-        System.out.println("Caminho do arquivo: " + new File(PATH).getAbsolutePath());
+//        System.out.println("JSON gerado: " + json);
+//        System.out.println("Caminho do arquivo: " + new File(PATH).getAbsolutePath());
 
         File diretorio = new File(DIRECTORY);
         if(!diretorio.exists())

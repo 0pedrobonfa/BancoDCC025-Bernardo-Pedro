@@ -2,39 +2,20 @@ package br.ufjf.dcc.dcc205.bancodcc025;
 
 public class Transacao {
     private String data;
-    private String descricao;
+    private String origem; //conta de origem
+    private String destino; //conta de destino
     private double valor;
-    private String tipo;
 
     //getters
     public String getData() {
         return data;
     }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public double getValor() {
-        return valor;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
+    public String getOrigem() {return origem;}
+    public double getValor() {return valor;}
+    public String getDestino(){return destino;}
     //setters
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
+    public void setDestino(String destino) {this.destino = destino;}
     public void setData(String data) {this.data = data;}
-
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
+    public void setValor(double valor) {this.valor = valor;}
+    public void setOrigem(String origem) {this.origem = origem;}
 }
