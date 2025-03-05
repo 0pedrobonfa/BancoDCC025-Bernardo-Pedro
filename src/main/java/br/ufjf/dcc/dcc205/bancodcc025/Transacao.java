@@ -5,7 +5,7 @@ public class Transacao {
     private int origem; //conta de origem
     private int destino; //conta de destino
     private double valor;
-    private String tipoDeInvestimento;
+    private String tipoDeInvestimento;// ou instituição
     private String nomeDoFundo;
 
     //Construtor para entre contas

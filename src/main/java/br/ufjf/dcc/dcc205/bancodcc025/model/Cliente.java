@@ -433,11 +433,38 @@ public class Cliente extends Usuario {
                 JLabel senhaTxt = new JLabel("Ao inserir sua senha a seguir, você estará concordando com os termos:");
                 JPasswordField senhaConfirmacao = new JPasswordField(15);
                 JButton confirma = new JButton("Confirma Ação");
-                // PARAFAZER ação do botão para verificar senha do usuário
 
                 painelSolicitacao.add(senhaTxt);
                 painelSolicitacao.add(senhaConfirmacao);
                 painelSolicitacao.add(confirma);
+                int valor = 5;//recebe valor da função de gerente
+                confirma.addActionListener(e->{
+                    if (String.valueOf(senhaConfirmacao.getPassword()).equals(getPassword())) {
+                        //adiciona valor a conta vindo de gerente
+                        setSaldoAtual(getSaldoAtual() + valor);
+
+                        ClientePersistence clientePersistence = new ClientePersistence();
+                        List<Cliente> clientes = clientePersistence.findAll();
+
+                        Cliente cli = null;
+
+                        for (Cliente c : clientes) {
+                            if (c.getNumConta() == getNumConta()) {
+                                cli = c;
+                            }
+                        }
+                        Transacao transacao = new Transacao(getNumConta(), "Crédito do Banco", valor);
+
+                        cli.getExtratos().add(transacao);
+
+                        clientePersistence.save(clientes);
+                        JOptionPane.showMessageDialog(null, "Solicitação confirmada!");
+
+                    }else {
+                        JOptionPane.showMessageDialog(null, "Senha incorreta");
+                    }
+
+                });
 
 
 
