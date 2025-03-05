@@ -474,6 +474,59 @@ public class Cliente extends Usuario {
         });
 
 
+        //botão para excluir conta do cliente (remoção)
+        JButton op6 = new JButton("Excluir minha conta");
+        painelCliente.add(op6);
+        op6.addActionListener(e->{
+            JFrame telaExclusao = new JFrame("Excluir conta");
+            telaExclusao.setSize(500, 600);
+            telaExclusao.setVisible(true);
+
+            JPanel painelEx  = new JPanel();
+            JLabel msgBoasVindas = new JLabel("Aqui você pode excluir sua conta!");
+
+            JLabel senhaLabel = new JLabel("Ao inserir a senha e apertar 'Confirmar' você está " +
+                    "excluido permanentemenete sua conta. Tem certeza disso?");
+
+            JPasswordField senhaField = new JPasswordField(15);
+
+            painelEx.add(msgBoasVindas);
+            painelEx.add(senhaLabel);
+            painelEx.add(senhaField);
+
+            JButton confirma = new JButton("Confirmar");
+            confirma.addActionListener(f->{
+                if (String.valueOf(senhaField.getPassword()).equals(getPassword())){
+
+                    ClientePersistence clientePersistence = new ClientePersistence();
+                    List<Cliente> clientes = clientePersistence.findAll();
+
+                    Cliente cli = null;
+
+                    for (Cliente c : clientes) {
+                        if (c.getNumConta() == getNumConta()) {
+                            cli = c;
+                        }
+                    }
+                    if (cli != null) {
+                        clientes.remove(cli); // Remove da lista
+                        clientePersistence.save(clientes); // Atualiza o JSON
+                        JOptionPane.showMessageDialog(null, "Cliente removido com sucesso!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
+                    }
+
+                    JOptionPane.showMessageDialog(null,"Conta excluida com sucesso!");
+                }
+
+            });
+
+            painelEx.add(confirma);
+
+            telaExclusao.add(painelEx);
+
+        });
+
         janelaCliente.add(painelCliente);
 
 
