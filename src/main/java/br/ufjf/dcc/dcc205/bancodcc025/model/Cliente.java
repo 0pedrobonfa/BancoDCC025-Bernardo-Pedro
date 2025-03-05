@@ -211,7 +211,7 @@ public class Cliente extends Usuario {
                 JPanel painelCDB = new JPanel();
                 painelCDB.setLayout(new BoxLayout(painelCDB, BoxLayout.Y_AXIS)); // faz o layout ser vertical
 
-                //seleção do tipo de cdb
+                // Seleção do tipo de CDB
                 JLabel cdbLabel = new JLabel("Selecione o tipo de CDB:");
                 painelCDB.add(cdbLabel);
 
@@ -228,17 +228,17 @@ public class Cliente extends Usuario {
                 painelCDB.add(cdb110);
                 painelCDB.add(cdb120);
 
-                // campo para "Valor a ser investido"
+                // Campo para "Valor a ser investido"
                 JLabel valorLabel = new JLabel("Valor a ser investido:");
                 painelCDB.add(valorLabel);
                 JTextField valorTf = new JTextField(15);
                 valorTf.setMaximumSize(new Dimension(Integer.MAX_VALUE, valorTf.getPreferredSize().height)); // limita altura
                 painelCDB.add(valorTf);
 
-                // campo para "Senha"
+                // Campo para "Senha"
                 JLabel senhaLabel = new JLabel("Senha:");
                 painelCDB.add(senhaLabel);
-                JTextField senhaInserida = new JTextField(15);
+                JPasswordField senhaInserida = new JPasswordField(15);
                 senhaInserida.setMaximumSize(new Dimension(Integer.MAX_VALUE, senhaInserida.getPreferredSize().height)); // limita altura
                 painelCDB.add(senhaInserida);
 
@@ -249,17 +249,45 @@ public class Cliente extends Usuario {
                     @Override
                     public void actionPerformed(ActionEvent h) {
                         if (getPassword().equals(senhaInserida.getText())) {
-                            JOptionPane.showMessageDialog(telaSaldoExt, "Ação confirmada!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                            double valorInvestido;
+                            valorInvestido = Double.parseDouble(valorTf.getText());
+
+                            // verifica se o cliente tem saldo suficiente para realizar o investimento
+                            if (getSaldoAtual() >= valorInvestido) {
+                                ClientePersistence clientePersistence = new ClientePersistence();
+                                List<Cliente> clientes = clientePersistence.findAll();
+
+                                //inicializa conta de origem
+                                Cliente origemCliente = null;
+
+                                // procura e seleciona conta adequada
+                                for (Cliente c : clientes) {
+                                    if (c.getNumConta() == getNumConta()) {
+                                        origemCliente = c;
+                                    }
+                                }
+                                origemCliente.setSaldoAtual(origemCliente.getSaldoAtual() - valorInvestido); //subtrai valor investido da conta
+
+                                Transacao transacao = new Transacao(getNumConta(), "CDB", valorInvestido);
+                                origemCliente.getExtratos().add(transacao);
+
+                                clientePersistence.save(clientes); //atualiza o arquivo com os dados modificados
+
+                                // confirma a operação
+                                JOptionPane.showMessageDialog(telaSaldoExt, "Ação confirmada! Investimento realizado.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                            }
                         } else {
+                            //se a senha estiver incorreta
                             JOptionPane.showMessageDialog(telaSaldoExt, "Senha incorreta!", "Erro", JOptionPane.ERROR_MESSAGE);
                         }
                     }
                 });
 
                 telaSaldoExt.add(painelCDB);
-                telaSaldoExt.revalidate(); // atualizar a interface
-            }
-        });
+                telaSaldoExt.revalidate(); //atualiza a interface
+            }});
+
 
         //botão investimento renda variável
         JButton op4 = new JButton("Investimento renda variável");

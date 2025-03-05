@@ -5,11 +5,19 @@ public class Transacao {
     private int origem; //conta de origem
     private int destino; //conta de destino
     private double valor;
+    private String tipoDeInvestimento;
 
-    //Construtor
+    //Construtor para entre contas
     public Transacao(int origem, int destino, double valor){
         this.origem = origem;
         this.destino = destino;
+        this.valor = valor;
+    }
+
+    //Construtor para renda-fixa
+    public Transacao(int origem, String tipoDeInvestimento, double valor){
+        this.origem = origem;
+        this.tipoDeInvestimento = tipoDeInvestimento;
         this.valor = valor;
     }
 
