@@ -308,12 +308,12 @@ public class Cliente extends Usuario {
                 JLabel optLabel = new JLabel("Selecione seus ativos abaixo:");
                 painelOpcoes.add(optLabel);
 
-                JRadioButton fundo1 = new JRadioButton("Fundo 1");
-                JRadioButton fundo2 = new JRadioButton("Fundo 2");
-                JRadioButton fundo3 = new JRadioButton("Fundo 3");
-                JRadioButton carteira1 = new JRadioButton("Carteira 1");
-                JRadioButton carteira2 = new JRadioButton("Carteira 2");
-                JRadioButton carteira3 = new JRadioButton("Carteira 3");
+                JRadioButton fundo1 = new JRadioButton("Fundo XP Ações");
+                JRadioButton fundo2 = new JRadioButton("Fundo Itaú Ações");
+                JRadioButton fundo3 = new JRadioButton("Fundo BB Ações Internacionais");
+                JRadioButton carteira1 = new JRadioButton("Carteira Conservadora");
+                JRadioButton carteira2 = new JRadioButton("Carteira Moderada");
+                JRadioButton carteira3 = new JRadioButton("Carteira Arrojada");
 
                 ButtonGroup grupoInv = new ButtonGroup();
                 grupoInv.add(fundo1);
@@ -323,12 +323,18 @@ public class Cliente extends Usuario {
                 grupoInv.add(carteira2);
                 grupoInv.add(carteira3);
 
+                JLabel valorAplicado = new JLabel("Valor que será Investido");
+                JTextField valorAplicadotf = new JTextField(15);
+
                 painelOpcoes.add(fundo1);
                 painelOpcoes.add(fundo2);
                 painelOpcoes.add(fundo3);
                 painelOpcoes.add(carteira1);
                 painelOpcoes.add(carteira2);
                 painelOpcoes.add(carteira3);
+                painelOpcoes.add(valorAplicado);
+                painelOpcoes.add(valorAplicadotf);
+
 
                 telaRendaVar.add(painelOpcoes);
 
@@ -339,8 +345,64 @@ public class Cliente extends Usuario {
                 painelSenha.add(senhaLabel);
                 painelSenha.add(senhaPassField);
 
+
                 JButton confirma = new JButton("Confirma");
                 painelSenha.add(confirma);
+
+                confirma.addActionListener(e -> {
+                    if (String.valueOf(senhaPassField.getPassword()).equals(getPassword())) {
+                        double valorInvestido;
+                        try {
+                            valorInvestido = Double.parseDouble(valorAplicadotf.getText());
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(null, "Valor inválido! Digite um número válido.");
+                            return;
+                        }
+
+                        // Verifica se algum ativo foi selecionado
+                        String ativoSelecionado = "";
+                        if (fundo1.isSelected()) ativoSelecionado = "Fundo XP Ações";
+                        else if (fundo2.isSelected()) ativoSelecionado = "Fundo Itaú Ações";
+                        else if (fundo3.isSelected()) ativoSelecionado = "Fundo BB Ações Internacionais";
+                        else if (carteira1.isSelected()) ativoSelecionado = "Carteira Conservadora";
+                        else if (carteira2.isSelected()) ativoSelecionado = "Carteira Moderada";
+                        else if (carteira3.isSelected()) ativoSelecionado = "Carteira Arrojada";
+
+                        if (ativoSelecionado.isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Selecione um ativo para investir!");
+                            return;
+                        }
+
+                        if (getSaldoAtual() >= valorInvestido) {
+                            //se o saldo for suficiente, retira o valor investido do saldo atual
+                            setSaldoAtual(getSaldoAtual() - valorInvestido);
+
+                            ClientePersistence clientePersistence = new ClientePersistence();
+                            List<Cliente> clientes = clientePersistence.findAll();
+
+                            Cliente cli = null;
+
+                            for (Cliente c : clientes) {
+                                if (c.getNumConta() == getNumConta()) {
+                                    cli = c;
+                                }
+                            }
+                            Transacao transacao = new Transacao(getNumConta(), ativoSelecionado, valorInvestido);
+
+                            cli.getExtratos().add(transacao);
+
+                            clientePersistence.save(clientes);
+
+                            // Confirma a operação
+                            JOptionPane.showMessageDialog(null, "Transação confirmada! Investimento realizado.");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Saldo insuficiente!", "Erro", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Senha incorreta!");
+                    }
+                });
+
 
                 telaRendaVar.add(painelSenha);
 
@@ -364,7 +426,7 @@ public class Cliente extends Usuario {
 
                 JPanel painelSolicitacao = new JPanel();
                 JLabel contrato = new JLabel("Leia atentamente os termos abaixo: ");
-                JLabel textoContrato = new JLabel("Como foi combinado anteriormente -> Aqui vai o texto do cliente");
+                JLabel textoContrato = new JLabel("Como foi combinado anteriormente -> Aqui vai o texto para o cliente");
                 painelSolicitacao.add(contrato);
                 painelSolicitacao.add(textoContrato);
 
