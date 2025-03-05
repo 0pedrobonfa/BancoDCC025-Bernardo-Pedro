@@ -1,9 +1,9 @@
 
 package br.ufjf.dcc.dcc205.bancodcc025;
-import br.ufjf.dcc.dcc205.bancodcc025.Cliente;
-import br.ufjf.dcc.dcc205.bancodcc025.Caixa;
-import br.ufjf.dcc.dcc205.bancodcc025.TelaLogin;
-import br.ufjf.dcc.dcc205.bancodcc025.Usuario;
+import br.ufjf.dcc.dcc205.bancodcc025.model.Cliente;
+import br.ufjf.dcc.dcc205.bancodcc025.model.Caixa;
+import br.ufjf.dcc.dcc205.bancodcc025.view.TelaLogin;
+import br.ufjf.dcc.dcc205.bancodcc025.model.Usuario;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
