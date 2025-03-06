@@ -1,4 +1,4 @@
-package br.ufjf.dcc.dcc205.bancodcc025;
+package br.ufjf.dcc.dcc205.bancodcc025.model;
 
 public class Transacao {
     private String data;
