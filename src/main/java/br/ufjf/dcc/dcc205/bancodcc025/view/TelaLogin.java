@@ -9,6 +9,8 @@ import br.ufjf.dcc.dcc205.bancodcc025.controller.GerenciarClientes;
 import br.ufjf.dcc.dcc205.bancodcc025.exception.ClienteException;
 
 import br.ufjf.dcc.dcc205.bancodcc025.model.Cliente;
+import br.ufjf.dcc.dcc205.bancodcc025.model.Caixa;
+import br.ufjf.dcc.dcc205.bancodcc025.model.Gerente;
 import br.ufjf.dcc.dcc205.bancodcc025.model.Usuario;
 import br.ufjf.dcc.dcc205.bancodcc025.persistence.ClientePersistence;
 
@@ -52,7 +54,6 @@ public class TelaLogin{
         int numAtual = getNumContasCliente();
         setNumContasCliente(numAtual+1);
         return numAtual+1;
-
     }
     private int calculaNumContaCaixa(){
         int numAtual = getNumContasCaixa();
@@ -213,28 +214,16 @@ public class TelaLogin{
                 return;
             }
 
-            try {
-                DefaultListModel<Cliente> model = (DefaultListModel<Cliente>) jlClientes.getModel();
-                Cliente novoCliente = new Cliente(nome, calculaNumContaCliente(), 0.0, senha, cpf);
-
-                model.addElement(novoCliente);
-
-                // Cria instância do ClientePersistence
-                ClientePersistence clientePersistence = new ClientePersistence();
-
-                // Carrega lista de clientes existente
-                List<Cliente> clientes = clientePersistence.findAll();
-
-                // Adiciona o novo cliente à lista
-                clientes.add(novoCliente);
-
-                // Salva a lista atualizada no JSON
-                clientePersistence.save(clientes);
-
-                JOptionPane.showMessageDialog(telaCadastro, "Usuário cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                telaCadastro.dispose(); // Fecha a tela após o cadastro
-            } catch (ClienteException ex) {
-                JOptionPane.showMessageDialog(telaCadastro, "O CPF do Novo Cliente " + cpf + " é inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+            Usuario novoUsuario;
+            if (cliente.isSelected()) {
+                novoUsuario = new Cliente(nome, calculaNumContaCliente(), 0.0, senha, cpf);
+            } else if (caixa.isSelected()) {
+                novoUsuario = new Caixa(nome, calculaNumContaCaixa(), senha, cpf);
+            } else if (gerente.isSelected()) {
+                novoUsuario = new Gerente(nome, calculaNumContaGerente(), senha, cpf);
+            } else {
+                JOptionPane.showMessageDialog(telaCadastro, "Selecione um tipo de usuário!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
             }
         });
 

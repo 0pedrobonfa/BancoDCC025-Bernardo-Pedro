@@ -5,7 +5,10 @@ public class Transacao {
     private int origem; //conta de origem
     private int destino; //conta de destino
     private double valor;
+
     private String tipoDeInvestimento;
+    private String nomeDoFundo;
+
 
     //Construtor para entre contas
     public Transacao(int origem, int destino, double valor){
@@ -20,6 +23,15 @@ public class Transacao {
         this.tipoDeInvestimento = tipoDeInvestimento;
         this.valor = valor;
     }
+
+
+    //Construtor para renda-variável
+    public Transacao(String nomeDoFundo, String tipoDeInvestimento, double valor){
+        this.nomeDoFundo = nomeDoFundo;
+        this.tipoDeInvestimento = tipoDeInvestimento;
+        this.valor = valor;
+    }
+
 
     //getters
     public String getData() {
