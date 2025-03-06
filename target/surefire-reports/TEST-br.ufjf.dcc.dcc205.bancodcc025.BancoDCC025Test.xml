@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.213" tests="13" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.35" tests="13" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -13,7 +13,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="BR"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-21-openjdk-amd64/lib"/>
-    <property name="sun.java.command" value="/home/pedrobonfa/Codes/java/BancoDCC025-Bernardo-Pedro/target/surefire/surefirebooter-20250306132930459_3.jar /home/pedrobonfa/Codes/java/BancoDCC025-Bernardo-Pedro/target/surefire 2025-03-06T13-29-29_053-jvmRun1 surefire-20250306132930459_1tmp surefire_0-20250306132930459_2tmp"/>
+    <property name="sun.java.command" value="/home/pedrobonfa/Codes/java/BancoDCC025-Bernardo-Pedro/target/surefire/surefirebooter-20250306185458464_3.jar /home/pedrobonfa/Codes/java/BancoDCC025-Bernardo-Pedro/target/surefire 2025-03-06T18-54-58_353-jvmRun1 surefire-20250306185458464_1tmp surefire_0-20250306185458464_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/pedrobonfa/Codes/java/BancoDCC025-Bernardo-Pedro/target/test-classes:/home/pedrobonfa/Codes/java/BancoDCC025-Bernardo-Pedro/target/classes:/home/pedrobonfa/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar:/home/pedrobonfa/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/pedrobonfa/.m2/repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar:/home/pedrobonfa/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/pedrobonfa/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.2/junit-jupiter-params-5.10.2.jar:/home/pedrobonfa/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar:/home/pedrobonfa/.m2/repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar:/home/pedrobonfa/.m2/repository/com/google/code/gson/gson/2.10/gson-2.10.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -28,7 +28,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="surefire.real.class.path" value="/home/pedrobonfa/Codes/java/BancoDCC025-Bernardo-Pedro/target/surefire/surefirebooter-20250306132930459_3.jar"/>
+    <property name="surefire.real.class.path" value="/home/pedrobonfa/Codes/java/BancoDCC025-Bernardo-Pedro/target/surefire/surefirebooter-20250306185458464_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.6+7-Ubuntu-122.04.1"/>
     <property name="user.name" value="pedrobonfa"/>
@@ -54,17 +54,17 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="testaProcessamentoDeDepositosCaixa" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.015"/>
+  <testcase name="testaProcessamentoDeDepositosCaixa" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.023"/>
   <testcase name="testaAvaliacaoDeCreditoGerente" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.001"/>
-  <testcase name="testaConsultaDeSaldoCliente" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.001"/>
+  <testcase name="testaConsultaDeSaldoCliente" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.075"/>
   <testcase name="testaAtendimentoDeSaqueCaixa" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.001"/>
-  <testcase name="testaTransferenciaCliente" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.001"/>
-  <testcase name="testaCadastroCliente" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.056"/>
-  <testcase name="testaSolicitaçãoDeCreditoCliente" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.001"/>
+  <testcase name="testaTransferenciaCliente" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.008"/>
+  <testcase name="testaCadastroCliente" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.009"/>
+  <testcase name="testaSolicitacaoDeCreditoCliente" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.007"/>
   <testcase name="testaApoioEmMovimentacoesFinanceirasGerente" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.001"/>
-  <testcase name="testaCadastroDeOpcoesDeRendaFixaGerente" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.0"/>
-  <testcase name="testaInvestimentoEmRendaVariavelCliente" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.001"/>
-  <testcase name="testaCadastroDeOpcoesDeRendaVariavelGerente" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.0"/>
+  <testcase name="testaCadastroDeOpcoesDeRendaFixaGerente" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.001"/>
+  <testcase name="testaInvestimentoEmRendaVariavelCliente" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.006"/>
+  <testcase name="testaCadastroDeOpcoesDeRendaVariavelGerente" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.001"/>
   <testcase name="testaTransferenciaCaixa" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.001"/>
-  <testcase name="testaInvestimentoEmRendaFixaCliente" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.0"/>
+  <testcase name="testaInvestimentoEmRendaFixaCliente" classname="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025Test" time="0.006"/>
 </testsuite>

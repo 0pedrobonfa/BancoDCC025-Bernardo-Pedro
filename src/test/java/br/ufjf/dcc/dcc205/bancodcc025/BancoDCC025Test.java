@@ -39,6 +39,9 @@ public class BancoDCC025Test {
         clientes.add(novoCliente);
         // Salva a lista atualizada no JSON
         clientePersistence.save(clientes);
+
+        clientes.remove(novoCliente);
+        clientePersistence.save(clientes);
     }
 
 
@@ -70,7 +73,6 @@ public class BancoDCC025Test {
         }
 
         clientes.remove(novoCliente);
-
         clientePersistence.save(clientes);
 
     }
@@ -119,6 +121,9 @@ public class BancoDCC025Test {
 
             }
         }
+        clientes.remove(origem);
+        clientes.remove(destino);
+        clientePersistence.save(clientes);
     }
 
     @Test
@@ -137,6 +142,9 @@ public class BancoDCC025Test {
                 Assertions.assertEquals(50000, c.getSaldoAtual());
             }
         }
+
+        clientes.remove(novoCliente);
+        clientePersistence.save(clientes);
     }
 
     @Test

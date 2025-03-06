@@ -425,7 +425,10 @@ public class Cliente extends Usuario {
 
                 JPanel painelSolicitacao = new JPanel();
                 JLabel contrato = new JLabel("Leia atentamente os termos abaixo: ");
-                JLabel textoContrato = new JLabel("Como foi combinado anteriormente -> Aqui vai o texto para o cliente");
+                JLabel textoContrato = new JLabel("Como foi acordardo em nosso último encontro, o CLIENTE, fechou um" +
+                        "acordo com o BANCO para uma Solicitação de Crédito de R$10.000,00 reais.\n" +
+                        " Esse valor, será parcelado de 48x de R$300,00. Havendo atraso no pagamento, o BANCO poderá aumentar os " +
+                        "juros na próxima cobrança.");
                 painelSolicitacao.add(contrato);
                 painelSolicitacao.add(textoContrato);
 

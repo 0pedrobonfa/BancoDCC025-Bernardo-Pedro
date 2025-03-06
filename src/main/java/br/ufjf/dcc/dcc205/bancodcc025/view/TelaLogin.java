@@ -222,7 +222,7 @@ public class TelaLogin{
                 {
                     DefaultListModel<Cliente> model = (DefaultListModel<Cliente>) jlClientes.getModel();
                     int num = Integer.parseInt(numeroFinal);
-                    Cliente novoCliente = new Cliente(nome, 1000+num , 100.0, senha, cpf);
+                    Cliente novoCliente = new Cliente(nome, 1000+num , 0.0, senha, cpf);
                     model.addElement(novoCliente);
                     // Cria instância do ClientePersistence
                     ClientePersistence clientePersistence = new ClientePersistence();

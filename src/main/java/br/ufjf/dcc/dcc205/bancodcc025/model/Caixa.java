@@ -1,6 +1,6 @@
 package br.ufjf.dcc.dcc205.bancodcc025.model;
 
-import br.ufjf.dcc.dcc205.bancodcc025.Transacao;
+import br.ufjf.dcc.dcc205.bancodcc025.model.Transacao;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
