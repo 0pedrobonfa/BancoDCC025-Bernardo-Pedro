@@ -5,6 +5,7 @@
 package br.ufjf.dcc.dcc205.bancodcc025.model;
 
 import br.ufjf.dcc.dcc205.bancodcc025.Transacao;
+import br.ufjf.dcc.dcc205.bancodcc025.persistence.GerentePersistence;
 import br.ufjf.dcc.dcc205.bancodcc025.persistence.ClientePersistence;
 import javax.swing.*;
 import java.awt.*;
@@ -308,6 +309,55 @@ public class Gerente extends Usuario{
         telaLogin.setVisible(true);
     }
     
+    public void removerConta ()
+    {
+        JFrame telaExclusao = new JFrame("Excluir conta");
+        telaExclusao.setSize(500, 600);
+        telaExclusao.setVisible(true);
+
+        JPanel painelEx  = new JPanel();
+        JLabel msgBoasVindas = new JLabel("Aqui você pode excluir sua conta!");
+
+        JLabel senhaLabel = new JLabel("Ao inserir a senha e apertar 'Confirmar' você está " +
+        "excluido permanentemenete sua conta. Tem certeza disso?");
+
+        JPasswordField senhaField = new JPasswordField(15);
+
+        painelEx.add(msgBoasVindas);
+        painelEx.add(senhaLabel);
+        painelEx.add(senhaField);
+
+        JButton confirma = new JButton("Confirmar");
+        confirma.addActionListener(f->{
+            if (String.valueOf(senhaField.getPassword()).equals(getPassword())){
+
+                GerentePersistence gerentePersistence = new GerentePersistence();
+                java.util.List<Gerente> gerentes = gerentePersistence.findAll();
+
+                Gerente cli = null;
+
+                for (Gerente c : gerentes) {
+                    if (c.getNumConta() == getNumConta()) {
+                        cli = c;
+                    }
+                }
+                if (cli != null) {
+                    gerentes.remove(cli); // Remove da lista
+                    gerentePersistence.save(gerentes); // Atualiza o JSON
+                    JOptionPane.showMessageDialog(null, "Gerente removido com sucesso!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Gerente não encontrado!");
+                }
+
+                JOptionPane.showMessageDialog(null,"Conta excluida com sucesso!");
+            }
+
+        });
+
+        painelEx.add(confirma);
+        telaExclusao.add(painelEx);
+    }
+    
     @Override
     public void telaUsuario() {
         super.telaUsuario();
@@ -335,6 +385,9 @@ public class Gerente extends Usuario{
         //botao de transferencia
         JButton op3 = new JButton("Apoio em Transferência");
         painelGerente.add(op3);
+        //botao de remover conta
+        JButton op4 = new JButton("Remover Conta");
+        painelGerente.add(op4);
 
         //funcao dos botoes, leva a login com um direcionador especifico
         //atendimento de saque
@@ -356,6 +409,13 @@ public class Gerente extends Usuario{
             @Override
             public void actionPerformed(ActionEvent f) {
                 exibirTelaDeLogin(3);   
+            }
+        });
+        //remocao
+        op4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent f) {
+                removerConta();   
             }
         });
         //

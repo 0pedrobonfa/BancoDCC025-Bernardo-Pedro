@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import br.ufjf.dcc.dcc205.bancodcc025.model.Cliente;
 import br.ufjf.dcc.dcc205.bancodcc025.persistence.ClientePersistence;
+import br.ufjf.dcc.dcc205.bancodcc025.persistence.CaixaPersistence;
 
 public class Caixa extends Usuario{
     //Atributos da classe Caixa
@@ -263,7 +264,6 @@ public class Caixa extends Usuario{
         
     }
     
-    
     private void exibirTelaDeLogin(int n)
     {
         JFrame telaLogin = new JFrame("Login do Cliente - Atendimento de Saque");
@@ -314,6 +314,55 @@ public class Caixa extends Usuario{
         telaLogin.add(painelLogin);
         telaLogin.setVisible(true);
     }
+    
+    public void removerConta ()
+    {
+        JFrame telaExclusao = new JFrame("Excluir conta");
+        telaExclusao.setSize(500, 600);
+        telaExclusao.setVisible(true);
+
+        JPanel painelEx  = new JPanel();
+        JLabel msgBoasVindas = new JLabel("Aqui você pode excluir sua conta!");
+
+        JLabel senhaLabel = new JLabel("Ao inserir a senha e apertar 'Confirmar' você está " +
+        "excluido permanentemenete sua conta. Tem certeza disso?");
+
+        JPasswordField senhaField = new JPasswordField(15);
+
+        painelEx.add(msgBoasVindas);
+        painelEx.add(senhaLabel);
+        painelEx.add(senhaField);
+
+        JButton confirma = new JButton("Confirmar");
+        confirma.addActionListener(f->{
+            if (String.valueOf(senhaField.getPassword()).equals(getPassword())){
+
+                CaixaPersistence caixaPersistence = new CaixaPersistence();
+                java.util.List<Caixa> caixas = caixaPersistence.findAll();
+
+                Caixa cli = null;
+
+                for (Caixa c : caixas) {
+                    if (c.getNumConta() == getNumConta()) {
+                        cli = c;
+                    }
+                }
+                if (cli != null) {
+                    caixas.remove(cli); // Remove da lista
+                    caixaPersistence.save(caixas); // Atualiza o JSON
+                    JOptionPane.showMessageDialog(null, "Caixa removido com sucesso!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Caixa não encontrado!");
+                }
+
+                JOptionPane.showMessageDialog(null,"Conta excluida com sucesso!");
+            }
+
+        });
+
+        painelEx.add(confirma);
+        telaExclusao.add(painelEx);
+    }
 
     @Override
     public void telaUsuario() {
@@ -342,6 +391,9 @@ public class Caixa extends Usuario{
         //botao de transferencia
         JButton op3 = new JButton("Realizar Transferência");
         painelCaixa.add(op3);
+        //botao de remover conta
+        JButton op4 = new JButton("Remover Conta");
+        painelCaixa.add(op4);
         
         //funcao dos botoes, leva a login com um direcionador especifico
         //atendimento de saque
@@ -363,6 +415,13 @@ public class Caixa extends Usuario{
             @Override
             public void actionPerformed(ActionEvent f) {
                 exibirTelaDeLogin(3);   
+            }
+        });
+        //remocao
+        op4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent f) {
+                removerConta();   
             }
         });
         //

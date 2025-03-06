@@ -1,5 +1,6 @@
 br\ufjf\dcc\dcc205\bancodcc025\model\Gerente$5.class
 br\ufjf\dcc\dcc205\bancodcc025\persistence\Arquivo.class
+br\ufjf\dcc\dcc205\bancodcc025\model\Caixa$7.class
 br\ufjf\dcc\dcc205\bancodcc025\model\Caixa$2.class
 br\ufjf\dcc\dcc205\bancodcc025\controller\GerenciarGerentes.class
 br\ufjf\dcc\dcc205\bancodcc025\model\Caixa$5.class
@@ -34,6 +35,7 @@ br\ufjf\dcc\dcc205\bancodcc025\model\Cliente$2.class
 br\ufjf\dcc\dcc205\bancodcc025\persistence\GerentePersistence$1.class
 br\ufjf\dcc\dcc205\bancodcc025\Transacao.class
 br\ufjf\dcc\dcc205\bancodcc025\model\Gerente$4.class
+br\ufjf\dcc\dcc205\bancodcc025\model\Gerente$7.class
 br\ufjf\dcc\dcc205\bancodcc025\model\Gerente.class
 br\ufjf\dcc\dcc205\bancodcc025\model\Cliente$5.class
 br\ufjf\dcc\dcc205\bancodcc025\persistence\CaixaPersistence.class
