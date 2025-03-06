@@ -6,11 +6,11 @@ import br.ufjf.dcc.dcc205.bancodcc025.view.TelaLogin;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AdicionarCliente implements ActionListener {
+public class AdicionarGerente implements ActionListener {
 
     private final TelaLogin tela;
 
-    public AdicionarCliente(TelaLogin tela) {
+    public AdicionarGerente(TelaLogin tela) {
         this.tela = tela;
     }
 

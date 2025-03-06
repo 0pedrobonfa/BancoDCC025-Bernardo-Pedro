@@ -6,6 +6,10 @@ package br.ufjf.dcc.dcc205.bancodcc025.view;
  */
 import br.ufjf.dcc.dcc205.bancodcc025.controller.AdicionarCliente;
 import br.ufjf.dcc.dcc205.bancodcc025.controller.GerenciarClientes;
+import br.ufjf.dcc.dcc205.bancodcc025.controller.AdicionarCaixa;
+import br.ufjf.dcc.dcc205.bancodcc025.controller.GerenciarCaixas;
+import br.ufjf.dcc.dcc205.bancodcc025.controller.AdicionarGerente;
+import br.ufjf.dcc.dcc205.bancodcc025.controller.GerenciarGerentes;
 import br.ufjf.dcc.dcc205.bancodcc025.exception.ClienteException;
 
 import br.ufjf.dcc.dcc205.bancodcc025.model.Cliente;
@@ -13,6 +17,9 @@ import br.ufjf.dcc.dcc205.bancodcc025.model.Caixa;
 import br.ufjf.dcc.dcc205.bancodcc025.model.Gerente;
 import br.ufjf.dcc.dcc205.bancodcc025.model.Usuario;
 import br.ufjf.dcc.dcc205.bancodcc025.persistence.ClientePersistence;
+import br.ufjf.dcc.dcc205.bancodcc025.persistence.CaixaPersistence;
+import br.ufjf.dcc.dcc205.bancodcc025.persistence.GerentePersistence;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,40 +37,21 @@ public class TelaLogin{
     private int numContasCaixa;
     private int numContasGerente;
     private JFrame tela;
-    private JList<Cliente> jlClientes;
     private final int WIDTH = 500;
     private final int HEIGHT = 600;
+    //
+    private JList<Cliente> jlClientes;
+    private JList<Caixa> jlCaixas;
+    private JList<Gerente> jlGerentes;
     //Construtor
     public TelaLogin(){
         this.numContasCliente = 1002;
         this.numContasCaixa = 100;
         this.numContasGerente= 200;
+        //
         this.jlClientes = new JList<>(new DefaultListModel<>());
-    }
-    //getters
-    public int getNumContasCliente() {return numContasCliente;}
-    public int getNumContasCaixa() {return numContasCaixa;}
-    public int getNumContasGerente() {return numContasGerente;}
-    //setters
-    public void setNumContasCliente(int numContasCliente) {this.numContasCliente = numContasCliente;}
-    public void setNumContasCaixa(int numContasCaixa) {this.numContasCaixa = numContasCaixa;}
-    public void setNumContasGerente(int numContasGerente) {this.numContasGerente = numContasGerente;}
-    //metodos para calculo do numéro da conta do usuário
-    private int calculaNumContaCliente(){
-
-        int numAtual = getNumContasCliente();
-        setNumContasCliente(numAtual+1);
-        return numAtual+1;
-    }
-    private int calculaNumContaCaixa(){
-        int numAtual = getNumContasCaixa();
-        setNumContasCaixa(numAtual+1);
-        return numAtual+1;
-    }
-    private int calculaNumContaGerente(){
-        int numAtual = getNumContasGerente();
-        setNumContasGerente(numAtual+1);
-        return numAtual+1;
+        this.jlCaixas = new JList<>(new DefaultListModel<>());
+        this.jlGerentes = new JList<>(new DefaultListModel<>());
     }
 
     //metodo para iniciar tela de login
@@ -134,14 +122,16 @@ public class TelaLogin{
                     tela.setVisible(false);
                     ((Cliente) usuario).telaUsuario(); // Abre a tela do cliente
                 }
-//                else if (usuario instanceof Caixa) {
-//                    JOptionPane.showMessageDialog(null, "CAIXA, seja bem-vindo!");
-//                    // Abre tela de caixa
-//                }
-//                else if (usuario instanceof Gerente) {
-//                    JOptionPane.showMessageDialog(null, "GERENTE, seja bem-vindo!");
-//                    // Abre tela de gerente
-//                }
+                else if (usuario instanceof Caixa) {
+                    JOptionPane.showMessageDialog(null, "CAIXA, seja bem-vindo!");  
+                    tela.setVisible(false);
+                    ((Caixa) usuario).telaUsuario(); // Abre tela de caixa
+                }
+               else if (usuario instanceof Gerente) {
+                 JOptionPane.showMessageDialog(null, "GERENTE, seja bem-vindo!");  
+                    tela.setVisible(false);
+                    ((Gerente) usuario).telaUsuario(); // Abre tela de gerente
+               }
                 else {
                     JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!");
                 }
@@ -153,7 +143,7 @@ public class TelaLogin{
     }
 
     //metodo para adicionar Clientes
-    public void addCliente() {
+    public void addUsuario() {
         JFrame telaCadastro = new JFrame("Tela de Cadastro");
         telaCadastro.setSize(WIDTH, HEIGHT);
         telaCadastro.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -181,6 +171,10 @@ public class TelaLogin{
         painelDeCadastro.add(new JLabel("Nome:"));
         JTextField tfUserName = new JTextField(15);
         painelDeCadastro.add(tfUserName);
+        
+        painelDeCadastro.add(new JLabel("Numero Final da Conta:"));
+        JTextField numeroTextField = new JTextField(15);
+        painelDeCadastro.add(numeroTextField);
 
         painelDeCadastro.add(new JLabel("CPF:"));
         JTextField cpfTextField = new JTextField(15);
@@ -200,6 +194,7 @@ public class TelaLogin{
         registra.addActionListener(e -> {
             // Verifica se os campos estão preenchidos antes de registrar
             String nome = tfUserName.getText().trim();
+            String numeroFinal = numeroTextField.getText().trim();
             String cpf = cpfTextField.getText().trim();
             String senha = tfPassword.getText().trim();
 
@@ -208,22 +203,74 @@ public class TelaLogin{
                 return;
             }
 
-            // Verifica se `jlClientes` foi inicializado corretamente
+            // Verifica se `jlClientes`e outros foram inicializados corretamente
             if (jlClientes == null || !(jlClientes.getModel() instanceof DefaultListModel<?>)) {
                 JOptionPane.showMessageDialog(telaCadastro, "Erro ao acessar a lista de clientes!", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
-            Usuario novoUsuario;
-            if (cliente.isSelected()) {
-                novoUsuario = new Cliente(nome, calculaNumContaCliente(), 0.0, senha, cpf);
-            } else if (caixa.isSelected()) {
-                novoUsuario = new Caixa(nome, calculaNumContaCaixa(), senha, cpf);
-            } else if (gerente.isSelected()) {
-                novoUsuario = new Gerente(nome, calculaNumContaGerente(), senha, cpf);
-            } else {
-                JOptionPane.showMessageDialog(telaCadastro, "Selecione um tipo de usuário!", "Erro", JOptionPane.ERROR_MESSAGE);
+            if (jlCaixas == null || !(jlCaixas.getModel() instanceof DefaultListModel<?>)) {
+                JOptionPane.showMessageDialog(telaCadastro, "Erro ao acessar a lista de caixas!", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
+            }
+            if (jlGerentes == null || !(jlGerentes.getModel() instanceof DefaultListModel<?>)) {
+                JOptionPane.showMessageDialog(telaCadastro, "Erro ao acessar a lista de gerentes!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            try {
+                if (cliente.isSelected()) 
+                {
+                    DefaultListModel<Cliente> model = (DefaultListModel<Cliente>) jlClientes.getModel();
+                    int num = Integer.parseInt(numeroFinal);
+                    Cliente novoCliente = new Cliente(nome, 1000+num , 0.0, senha, cpf);
+                    model.addElement(novoCliente);
+                    // Cria instância do ClientePersistence
+                    ClientePersistence clientePersistence = new ClientePersistence();
+                    // Carrega lista de clientes existente
+                    List<Cliente> clientes = clientePersistence.findAll();
+                    // Adiciona o novo cliente à lista
+                    clientes.add(novoCliente);
+                    // Salva a lista atualizada no JSON
+                    clientePersistence.save(clientes);
+                    JOptionPane.showMessageDialog(telaCadastro, "Usuário cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    telaCadastro.dispose(); // Fecha a tela após o cadastro
+                }
+                else if (caixa.isSelected()) 
+                {
+                    DefaultListModel<Caixa> model = (DefaultListModel<Caixa>) jlCaixas.getModel();
+                    int num = Integer.parseInt(numeroFinal);
+                    Caixa novoCaixa = new Caixa(nome, 100+num, senha, cpf);
+                    model.addElement(novoCaixa);
+                    // Cria instância do CaixaPersistence
+                    CaixaPersistence caixaPersistence = new CaixaPersistence();
+                    // Carrega lista de caixas existente
+                    List<Caixa> caixas = caixaPersistence.findAll();
+                    // Adiciona o novo caixa à lista
+                    caixas.add(novoCaixa);
+                    // Salva a lista atualizada no JSON
+                    caixaPersistence.save(caixas);
+                    JOptionPane.showMessageDialog(telaCadastro, "Usuário cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    telaCadastro.dispose(); // Fecha a tela após o cadastro
+                }
+                else if (gerente.isSelected()) 
+                {
+                    DefaultListModel<Gerente> model = (DefaultListModel<Gerente>) jlGerentes.getModel();
+                    int num = Integer.parseInt(numeroFinal);
+                    Gerente novogerente = new Gerente(nome, 10+num, senha, cpf);
+                    model.addElement(novogerente);
+                    // Cria instância do gerentePersistence
+                    GerentePersistence gerentePersistence = new GerentePersistence();
+                    // Carrega lista de gerentes existente
+                    List<Gerente> gerentes = gerentePersistence.findAll();
+                    // Adiciona o novo gerente à lista
+                    gerentes.add(novogerente);
+                    // Salva a lista atualizada no JSON
+                    gerentePersistence.save(gerentes);
+                    JOptionPane.showMessageDialog(telaCadastro, "Usuário cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    telaCadastro.dispose(); // Fecha a tela após o cadastro
+                }
+            } catch (ClienteException ex) {
+                JOptionPane.showMessageDialog(telaCadastro, "O CPF do Novo Cliente " + cpf + " é inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -241,38 +288,94 @@ public class TelaLogin{
 
         jlClientes.setModel(model); // Atualiza o modelo da JList
     }
+    
+    //metodo para carregar Caixas
+    public void carregaCaixas(List<Caixa> caixas) {
+        DefaultListModel<Caixa> model = new DefaultListModel<>();
+
+        for (Caixa c : caixas) {
+            model.addElement(c);
+        }
+
+        jlCaixas.setModel(model); // Atualiza o modelo da JList
+    }
+    
+    //metodo para carregar Gerentes
+    public void carregaGerentes(List<Gerente> gerentes) {
+        DefaultListModel<Gerente> model = new DefaultListModel<>();
+
+        for (Gerente c : gerentes) {
+            model.addElement(c);
+        }
+
+        jlGerentes.setModel(model); // Atualiza o modelo da JList
+    }
 
     //metodo para criar lista com os Clientes
     public List<Cliente> listaClientes(){
         DefaultListModel<Cliente> model = (DefaultListModel<Cliente>)jlClientes.getModel();
-        List<Cliente> contatos = new ArrayList<>();
+        List<Cliente> clientes = new ArrayList<>();
 
         for (int i = 0; i < model.size(); i++) {
-            contatos.add(model.get(i));
+            clientes.add(model.get(i));
         }
 
-        return contatos;
+        return clientes;
+    }
+    
+    //metodo para criar lista com os Caixas
+    public List<Caixa> listaCaixas(){
+        DefaultListModel<Caixa> model = (DefaultListModel<Caixa>)jlCaixas.getModel();
+        List<Caixa> caixas = new ArrayList<>();
+
+        for (int i = 0; i < model.size(); i++) {
+            caixas.add(model.get(i));
+        }
+
+        return caixas;
+    }
+    
+    //metodo para criar lista com os Gerentes
+    public List<Gerente> listaGerentes(){
+        DefaultListModel<Gerente> model = (DefaultListModel<Gerente>)jlGerentes.getModel();
+        List<Gerente> gerentes = new ArrayList<>();
+
+        for (int i = 0; i < model.size(); i++) {
+            gerentes.add(model.get(i));
+        }
+
+        return gerentes;
     }
 
     //metodo para fazer autenticação dos usuários
     private Usuario autenticar(String login, String senha) {
+        
         ClientePersistence clientePersistence = new ClientePersistence();
         List<Cliente> clientes = clientePersistence.findAll();
+        CaixaPersistence caixaPersistence = new CaixaPersistence();
+        List<Caixa> caixas = caixaPersistence.findAll();
+        GerentePersistence gerentePersistence = new GerentePersistence();
+        List<Gerente> gerentes = gerentePersistence.findAll();
+        
 
         // Verifica se o cliente atual está registrado
         for (Cliente c : clientes) {
-            if (c.getNome().equals(login) && c.getPassword().equals(senha)) {
+            if (c.getNome().equals(login) && c.getPassword().equals(senha) && c.getTipoDeUsuario().equals("Cliente")) {
                 return c;
             }
         }
-
-        // Verifica se é um caixa ou gerente fixo
-//        if ("caixa".equals(login) && "caixa".equals(senha)) {
-//            return new Caixa();
-//        }
-//        if ("gerente".equals(login) && "gerente".equals(senha)) {
-//            return new Gerente();
-//        }
+        // Verifica se o caixa atual está registrado
+        for (Caixa c : caixas) {
+            if (c.getNome().equals(login) && c.getPassword().equals(senha) && c.getTipoDeUsuario().equals("Caixa")) {
+                return c;
+            }
+        }
+        // Verifica se o gerente atual está registrado
+        for (Gerente c : gerentes) {
+            if (c.getNome().equals(login) && c.getPassword().equals(senha) && c.getTipoDeUsuario().equals("Gerente")) {
+                return c;
+            }
+        }
 
         return null;
     }

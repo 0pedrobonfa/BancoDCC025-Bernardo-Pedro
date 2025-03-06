@@ -1,35 +1,35 @@
 package br.ufjf.dcc.dcc205.bancodcc025.controller;
 
 
-import br.ufjf.dcc.dcc205.bancodcc025.model.Cliente;
+import br.ufjf.dcc.dcc205.bancodcc025.model.Gerente;
 import br.ufjf.dcc.dcc205.bancodcc025.view.TelaLogin;
-import br.ufjf.dcc.dcc205.bancodcc025.persistence.ClientePersistence;
+import br.ufjf.dcc.dcc205.bancodcc025.persistence.GerentePersistence;
 import br.ufjf.dcc.dcc205.bancodcc025.persistence.Persistence;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.List;
 
-public class GerenciarClientes implements WindowListener {
+public class GerenciarGerentes implements WindowListener {
 
     private final TelaLogin tela;
 
-    public GerenciarClientes(TelaLogin tela) {
+    public GerenciarGerentes(TelaLogin tela) {
         this.tela = tela;
     }
 
     @Override
     public void windowOpened(WindowEvent e) {
-        Persistence<Cliente> contatoPersistence = new ClientePersistence();
-        List<Cliente> all = contatoPersistence.findAll();
-        tela.carregaClientes(all);
+        Persistence<Gerente> contatoPersistence = new GerentePersistence();
+        List<Gerente> all = contatoPersistence.findAll();
+        tela.carregaGerentes(all);
 
     }
 
     @Override
     public void windowClosing(WindowEvent e) {
-        Persistence<Cliente> clientePersistence = new ClientePersistence();
-        clientePersistence.save(tela.listaClientes());
+        Persistence<Gerente> gerentePersistence = new GerentePersistence();
+        gerentePersistence.save(tela.listaGerentes());
     }
 
     @Override
