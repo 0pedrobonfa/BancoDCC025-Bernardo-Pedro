@@ -308,21 +308,12 @@ public class Cliente extends Usuario {
                 JLabel optLabel = new JLabel("Selecione seus ativos abaixo:");
                 painelOpcoes.add(optLabel);
 
-
-                JRadioButton fundo1 = new JRadioButton("Fundo 1");
-                JRadioButton fundo2 = new JRadioButton("Fundo 2");
-                JRadioButton fundo3 = new JRadioButton("Fundo 3");
-                JRadioButton carteira1 = new JRadioButton("Carteira 1");
-                JRadioButton carteira2 = new JRadioButton("Carteira 2");
-                JRadioButton carteira3 = new JRadioButton("Carteira 3");
-
-                //JRadioButton fundo1 = new JRadioButton("Fundo XP Ações");
-                //JRadioButton fundo2 = new JRadioButton("Fundo Itaú Ações");
-                //JRadioButton fundo3 = new JRadioButton("Fundo BB Ações Internacionais");
-                //JRadioButton carteira1 = new JRadioButton("Carteira Conservadora");
-                //JRadioButton carteira2 = new JRadioButton("Carteira Moderada");
-                //JRadioButton carteira3 = new JRadioButton("Carteira Arrojada");
-
+                JRadioButton fundo1 = new JRadioButton("Fundo XP Ações");
+                JRadioButton fundo2 = new JRadioButton("Fundo Itaú Ações");
+                JRadioButton fundo3 = new JRadioButton("Fundo BB Ações Internacionais");
+                JRadioButton carteira1 = new JRadioButton("Carteira Conservadora");
+                JRadioButton carteira2 = new JRadioButton("Carteira Moderada");
+                JRadioButton carteira3 = new JRadioButton("Carteira Arrojada");
 
                 ButtonGroup grupoInv = new ButtonGroup();
                 grupoInv.add(fundo1);
@@ -335,14 +326,12 @@ public class Cliente extends Usuario {
                 JLabel valorAplicado = new JLabel("Valor que será Investido");
                 JTextField valorAplicadotf = new JTextField(15);
 
-
                 painelOpcoes.add(fundo1);
                 painelOpcoes.add(fundo2);
                 painelOpcoes.add(fundo3);
                 painelOpcoes.add(carteira1);
                 painelOpcoes.add(carteira2);
                 painelOpcoes.add(carteira3);
-           
                 painelOpcoes.add(valorAplicado);
                 painelOpcoes.add(valorAplicadotf);
 
@@ -356,11 +345,8 @@ public class Cliente extends Usuario {
                 painelSenha.add(senhaLabel);
                 painelSenha.add(senhaPassField);
 
+
                 JButton confirma = new JButton("Confirma");
-                painelSenha.add(confirma);
-
-
-                //JButton confirma = new JButton("Confirma");
                 painelSenha.add(confirma);
 
                 confirma.addActionListener(e -> {
@@ -440,11 +426,7 @@ public class Cliente extends Usuario {
 
                 JPanel painelSolicitacao = new JPanel();
                 JLabel contrato = new JLabel("Leia atentamente os termos abaixo: ");
-
-                JLabel textoContrato = new JLabel("Como foi combinado anteriormente -> Aqui vai o texto do cliente");
-
-                //JLabel textoContrato = new JLabel("Como foi combinado anteriormente -> Aqui vai o texto para o cliente");
-
+                JLabel textoContrato = new JLabel("Como foi combinado anteriormente -> Aqui vai o texto para o cliente");
                 painelSolicitacao.add(contrato);
                 painelSolicitacao.add(textoContrato);
 
@@ -452,13 +434,9 @@ public class Cliente extends Usuario {
                 JPasswordField senhaConfirmacao = new JPasswordField(15);
                 JButton confirma = new JButton("Confirma Ação");
 
-                // PARAFAZER ação do botão para verificar senha do usuário
-
-
                 painelSolicitacao.add(senhaTxt);
                 painelSolicitacao.add(senhaConfirmacao);
                 painelSolicitacao.add(confirma);
-
                 int valor = 5;//recebe valor da função de gerente
                 confirma.addActionListener(e->{
                     if (String.valueOf(senhaConfirmacao.getPassword()).equals(getPassword())) {
@@ -487,7 +465,6 @@ public class Cliente extends Usuario {
                     }
 
                 });
-
 
 
 
@@ -567,4 +544,3 @@ public class Cliente extends Usuario {
                 "}";
     }
 }
-

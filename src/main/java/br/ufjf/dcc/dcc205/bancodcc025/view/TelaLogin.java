@@ -128,7 +128,7 @@ public class TelaLogin{
                     ((Caixa) usuario).telaUsuario(); // Abre tela de caixa
                 }
                else if (usuario instanceof Gerente) {
-                 JOptionPane.showMessageDialog(null, "GERENTE, seja bem-vindo!");  
+                    JOptionPane.showMessageDialog(null, "GERENTE, seja bem-vindo!");  
                     tela.setVisible(false);
                     ((Gerente) usuario).telaUsuario(); // Abre tela de gerente
                }
@@ -222,7 +222,7 @@ public class TelaLogin{
                 {
                     DefaultListModel<Cliente> model = (DefaultListModel<Cliente>) jlClientes.getModel();
                     int num = Integer.parseInt(numeroFinal);
-                    Cliente novoCliente = new Cliente(nome, 1000+num , 0.0, senha, cpf);
+                    Cliente novoCliente = new Cliente(nome, 1000+num , 100.0, senha, cpf);
                     model.addElement(novoCliente);
                     // Cria instância do ClientePersistence
                     ClientePersistence clientePersistence = new ClientePersistence();

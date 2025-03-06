@@ -1,4 +1,5 @@
 br\ufjf\dcc\dcc205\bancodcc025\persistence\Arquivo.class
+br\ufjf\dcc\dcc205\bancodcc025\model\Caixa$2.class
 br\ufjf\dcc\dcc205\bancodcc025\controller\GerenciarGerentes.class
 br\ufjf\dcc\dcc205\bancodcc025\model\Usuario.class
 br\ufjf\dcc\dcc205\bancodcc025\persistence\ClientePersistence.class
@@ -11,6 +12,8 @@ br\ufjf\dcc\dcc205\bancodcc025\model\Cliente$1.class
 br\ufjf\dcc\dcc205\bancodcc025\controller\GerenciarClientes.class
 br\ufjf\dcc\dcc205\bancodcc025\BancoDCC025.class
 br\ufjf\dcc\dcc205\bancodcc025\controller\AdicionarCliente.class
+br\ufjf\dcc\dcc205\bancodcc025\model\Caixa$3.class
+br\ufjf\dcc\dcc205\bancodcc025\model\Caixa$1.class
 br\ufjf\dcc\dcc205\bancodcc025\controller\GerenciarCaixas.class
 br\ufjf\dcc\dcc205\bancodcc025\view\TelaLogin$1.class
 br\ufjf\dcc\dcc205\bancodcc025\persistence\ClientePersistence$1.class

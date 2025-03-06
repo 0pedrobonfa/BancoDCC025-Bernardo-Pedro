@@ -18,6 +18,11 @@ import java.util.List;
 public class BancoDCC025Test {
     
     @Test
+    public void testaCadastroCliente ()
+    {
+    }
+    
+    @Test
     public void testaTransferenciaCliente ()
     {
     }
