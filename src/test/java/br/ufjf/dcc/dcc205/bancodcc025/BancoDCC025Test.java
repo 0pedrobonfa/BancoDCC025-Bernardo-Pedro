@@ -15,6 +15,8 @@ import org.junit.jupiter.api.Assertions;
 
 import javax.swing.*;
 import java.io.ByteArrayOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,7 @@ import java.util.Objects;
 
 public class BancoDCC025Test {
     private JList<Cliente> jlClientes;
-
+    private int verifica;
     public BancoDCC025Test(){
         this.jlClientes = new JList<>(new DefaultListModel<>());
     }
@@ -67,10 +69,15 @@ public class BancoDCC025Test {
             }
         }
 
+        clientes.remove(novoCliente);
+
+        clientePersistence.save(clientes);
+
     }
 
     @Test
     public void testaTransferenciaCliente() {
+
         //cria dois clientes para checar a transferência
         Cliente origem = new Cliente("Abner", 1007, 4000.00, "5555", "14523698801");
         Cliente destino = new Cliente("Juanita", 1012, 800.00, "222", "45678912302");
@@ -117,6 +124,7 @@ public class BancoDCC025Test {
     @Test
     public void testaConsultaDeSaldoCliente ()
     {
+
         //cria cliente; ve se saldo no json bate com o saldo iniciado
         Cliente novoCliente = new Cliente("Umberto",1006,50000,"senha","12345678970");
         cadastraNovoCliente(novoCliente);
@@ -129,11 +137,11 @@ public class BancoDCC025Test {
                 Assertions.assertEquals(50000, c.getSaldoAtual());
             }
         }
-
     }
 
     @Test
     public void testaInvestimentoEmRendaFixaCliente() {
+
         Cliente novoCliente = new Cliente("Thiago", 1047, 2000, "senha", "78549621369");
 
         DefaultListModel<Cliente> model = (DefaultListModel<Cliente>) jlClientes.getModel();
@@ -156,12 +164,17 @@ public class BancoDCC025Test {
                 Assertions.assertEquals(novoCliente.getExtratos(), c.getExtratos());
             }
         }
+
+        clientes.remove(novoCliente);
+        clientePersistence.save(clientes);
     }
+
 
 
     @Test
     public void testaInvestimentoEmRendaVariavelCliente ()
     {
+
         Cliente novoCliente = new Cliente("José", 1049, 3000, "senha", "78549745369");
 
         DefaultListModel<Cliente> model = (DefaultListModel<Cliente>) jlClientes.getModel();
@@ -184,11 +197,14 @@ public class BancoDCC025Test {
                 Assertions.assertEquals(novoCliente.getExtratos(), c.getExtratos());
             }
         }
+        clientes.remove(novoCliente);
+        clientePersistence.save(clientes);
     }
 
     @Test
-    public void testaSolicitaçãoDeCreditoCliente ()
+    public void testaSolicitacaoDeCreditoCliente()
     {
+
         Cliente novoCliente = new Cliente("Evandro", 1039, 4000, "senha", "78549745369");
 
         DefaultListModel<Cliente> model = (DefaultListModel<Cliente>) jlClientes.getModel();
@@ -211,6 +227,9 @@ public class BancoDCC025Test {
                 Assertions.assertEquals(novoCliente.getExtratos(), c.getExtratos());
             }
         }
+
+        clientes.remove(novoCliente);
+        clientePersistence.save(clientes);
     }
 
     @Test
