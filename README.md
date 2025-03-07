@@ -1,2 +1,43 @@
 # BancoDCC025-Bernardo-Pedro
-Repositório do trabalho final de DCC025.
+
+## Descrição
+
+Projeto em Java da disciplina DCC025.
+
+## Pré-requisitos
+
+- Git ([download](https://git-scm.com/))
+- Java JDK 11 ou superior ([download](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html))
+- Maven 3.6.3 ou superior ([download](https://maven.apache.org/download.cgi))
+
+## Instalação
+
+###  1. Clone o repositório abaixo:
+```bash
+https://github.com/0pedrobonfa/BancoDCC025-Bernardo-Pedro
+```
+### 2. Navegue para a pasta do projeto
+
+```bash
+cd BancoDCC025-Bernardo-Pedro
+```
+
+### 3. Compile o projeto com o Maven
+
+```bash
+mvn clean install
+```
+
+## Execução
+
+### Execute o código com
+
+```bash
+mvn exec:java -Dexec.mainClass="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025"
+```
+### Execute os testes de Unidade:
+
+```bash
+mvn test
+```
+
