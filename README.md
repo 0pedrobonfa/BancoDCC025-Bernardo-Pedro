@@ -14,7 +14,7 @@ Projeto em Java da disciplina DCC025.
 
 ###  1. Copie o repositório abaixo por uma chave ssh:
 ```bash
-https://github.com/0pedrobonfa/BancoDCC025-Bernardo-Pedro
+git@github.com:0pedrobonfa/BancoDCC025-Bernardo-Pedro.git
 ```
 ### 2. Pelo terminal, navegue para a pasta do projeto e use git clone, atribuindo sua chave ssh
 
@@ -43,3 +43,5 @@ mvn exec:java
 mvn test
 ```
 
+## Uma vez rodando o programa
+Para começar a usar livremente o programa, utilize o botão de "Registrar Usuário" no menu de login para registrar ao menos dois clientes, um caixa e um gerente. (Número final: no máximo 99; CPF: 11 dígitos).
