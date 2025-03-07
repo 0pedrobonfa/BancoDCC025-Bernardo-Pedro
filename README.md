@@ -12,11 +12,11 @@ Projeto em Java da disciplina DCC025.
 
 ## Instalação
 
-###  1. Clone o repositório abaixo:
+###  1. Copie o repositório abaixo por uma chave ssh:
 ```bash
 https://github.com/0pedrobonfa/BancoDCC025-Bernardo-Pedro
 ```
-### 2. Navegue para a pasta do projeto
+### 2. Pelo terminal, navegue para a pasta do projeto e use git clone, atribuindo sua chave ssh
 
 ```bash
 cd BancoDCC025-Bernardo-Pedro
