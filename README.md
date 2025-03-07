@@ -20,6 +20,7 @@ https://github.com/0pedrobonfa/BancoDCC025-Bernardo-Pedro
 
 ```bash
 cd BancoDCC025-Bernardo-Pedro
+git clone (link ssh copiado)
 ```
 
 ### 3. Compile o projeto com o Maven
