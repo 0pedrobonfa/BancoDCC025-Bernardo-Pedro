@@ -27,6 +27,7 @@ git clone (link ssh copiado)
 
 ```bash
 mvn clean install
+mvn compile
 ```
 
 ## Execução
@@ -34,7 +35,7 @@ mvn clean install
 ### Execute o código com
 
 ```bash
-mvn exec:java -Dexec.mainClass="br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025"
+mvn exec:java
 ```
 ### Execute os testes de Unidade:
 
