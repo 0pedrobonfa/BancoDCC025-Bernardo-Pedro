@@ -58,6 +58,14 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
                         </archive>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <configuration>
+                        <mainClass>br.ufjf.dcc.dcc205.bancodcc025.BancoDCC025</mainClass>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
