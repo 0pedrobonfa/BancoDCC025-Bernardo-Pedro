@@ -59,6 +59,7 @@ public class TelaLogin{
         tela = new JFrame("Login");
         tela.addWindowListener(new GerenciarClientes(this));
         tela.setSize(WIDTH, HEIGHT);
+        tela.setLocationRelativeTo(null);
         tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         tela.setLayout(new BorderLayout());
@@ -70,7 +71,6 @@ public class TelaLogin{
     //metodo para desenhar as areas de 'usuario' e 'senha'
     private JPanel desenhaAreaLogin() {
         JPanel areaLoginContainer = new JPanel(new GridBagLayout());
-
         GridBagConstraints grid = new GridBagConstraints();
         grid.fill = GridBagConstraints.HORIZONTAL;//Faz ele preencher o espaço na horizontal
         grid.insets = new Insets(5, 5, 5, 5);//Espaçamento entre os componentes
@@ -146,6 +146,7 @@ public class TelaLogin{
     public void addUsuario() {
         JFrame telaCadastro = new JFrame("Tela de Cadastro");
         telaCadastro.setSize(WIDTH, HEIGHT);
+        telaCadastro.setLocationRelativeTo(null);
         telaCadastro.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JPanel painelDeCadastro = new JPanel();
@@ -198,8 +199,27 @@ public class TelaLogin{
             String cpf = cpfTextField.getText().trim();
             String senha = tfPassword.getText().trim();
 
-            if (nome.isEmpty() || cpf.isEmpty() || senha.isEmpty()) {
+            if (nome.isEmpty() || numeroFinal.isEmpty() || cpf.isEmpty() || senha.isEmpty()) {
                 JOptionPane.showMessageDialog(telaCadastro, "Todos os campos devem ser preenchidos!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            float cpfVerifica = Float.parseFloat(cpf);
+            if (cpfVerifica > 99999999999.0 || cpfVerifica < 10000000000.0)
+            {
+                JOptionPane.showMessageDialog(telaCadastro, "CPF INVÁLIDO", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            int numF = Integer.parseInt(numeroFinal);
+            try {
+                if (numF > 99)
+                {
+                    JOptionPane.showMessageDialog(telaCadastro, "NÚMERO FINAL INVÁLIDO, MÁXIMO 99", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            } catch (NumberFormatException ex){
+                JOptionPane.showMessageDialog(telaCadastro, "NÚMERO FINAL INVÁLIDO, MÁXIMO 99", "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 

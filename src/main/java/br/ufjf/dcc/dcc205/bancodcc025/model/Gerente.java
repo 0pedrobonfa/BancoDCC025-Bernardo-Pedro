@@ -318,8 +318,9 @@ public class Gerente extends Usuario{
         JPanel painelEx  = new JPanel();
         JLabel msgBoasVindas = new JLabel("Aqui você pode excluir sua conta!");
 
-        JLabel senhaLabel = new JLabel("Ao inserir a senha e apertar 'Confirmar' você está " +
-        "excluido permanentemenete sua conta. Tem certeza disso?");
+        String texto = "<html><center>Ao inserir a senha e apertar 'Confirmar' você está<br>" +
+"                    excluido permanentemenete sua conta. Tem certeza disso?<center><html>";
+        JLabel senhaLabel = new JLabel(texto);
 
         JPasswordField senhaField = new JPasswordField(15);
 

@@ -26,6 +26,7 @@ public class Caixa extends Usuario{
     {
         JFrame telaAtendimento = new JFrame("Atendimento de Saque");
         telaAtendimento.setSize(500, 600);
+        telaAtendimento.setLocationRelativeTo(null);
 
         JPanel painelAtendimento = new JPanel();
         JTextField valorDoSaque = new JTextField(15);
@@ -96,6 +97,7 @@ public class Caixa extends Usuario{
     {
         Frame telaDeposito = new JFrame("Processar Depósito");
         telaDeposito.setSize(500, 600);
+        telaDeposito.setLocationRelativeTo(null);
 
         JPanel painelDeposito = new JPanel();
         JTextField valorDoDeposito = new JTextField(15);
@@ -166,6 +168,7 @@ public class Caixa extends Usuario{
     {
         JFrame telaTransferencia = new JFrame("Transferência");
         telaTransferencia.setSize(500, 600);
+        telaTransferencia.setLocationRelativeTo(null);
         telaTransferencia.setVisible(true);
 
         JPanel painelTrans = new JPanel();
@@ -268,6 +271,7 @@ public class Caixa extends Usuario{
     {
         JFrame telaLogin = new JFrame("Login do Cliente - Atendimento de Saque");
         telaLogin.setSize(300, 200);
+        telaLogin.setLocationRelativeTo(null);
 
         JPanel painelLogin = new JPanel();
         JTextField campoUsuario = new JTextField(15);
@@ -319,13 +323,15 @@ public class Caixa extends Usuario{
     {
         JFrame telaExclusao = new JFrame("Excluir conta");
         telaExclusao.setSize(500, 600);
+        telaExclusao.setLocationRelativeTo(null);
         telaExclusao.setVisible(true);
 
         JPanel painelEx  = new JPanel();
         JLabel msgBoasVindas = new JLabel("Aqui você pode excluir sua conta!");
 
-        JLabel senhaLabel = new JLabel("Ao inserir a senha e apertar 'Confirmar' você está " +
-        "excluido permanentemenete sua conta. Tem certeza disso?");
+        String texto = "<html><center>Ao inserir a senha e apertar 'Confirmar' você está<br>" +
+"                    excluido permanentemenete sua conta. Tem certeza disso?<center><html>";
+        JLabel senhaLabel = new JLabel(texto);
 
         JPasswordField senhaField = new JPasswordField(15);
 
@@ -370,6 +376,7 @@ public class Caixa extends Usuario{
         //criar painel da tela do usuário com todas as opções
         JFrame janelaCaixa = new JFrame("Caixa");
         janelaCaixa.setSize(500, 600);
+        janelaCaixa.setLocationRelativeTo(null);
         janelaCaixa.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         janelaCaixa.setVisible(true);
 

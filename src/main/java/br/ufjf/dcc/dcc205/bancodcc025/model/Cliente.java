@@ -43,48 +43,64 @@ public class Cliente extends Usuario {
         super.telaUsuario();
         //cria painel da tela do usuário com todas as opções
         JFrame janelaCliente = new JFrame("Cliente");
-        janelaCliente.setSize(500, 600);
+        janelaCliente.setSize(300, 400);
+        janelaCliente.setLocationRelativeTo(null);
         janelaCliente.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        janelaCliente.setVisible(true);
-
+        
+        //painel principal
         JPanel painelCliente = new JPanel();
-        //painelCliente.setSize(500/2, 600/2);
-
-        JLabel nomeCliente  = new JLabel("Nome: "+getNome());
-        painelCliente.add(nomeCliente);
-
+        painelCliente.setLayout(new BoxLayout(painelCliente, BoxLayout.Y_AXIS));
+        
+        //Cabecalho
+        JPanel painelCabecalho = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JLabel nomeCliente  = new JLabel("Nome: "+getNome() + ",");
+        painelCabecalho.add(nomeCliente);
         JLabel conta = new JLabel("Número da conta: "+getNumConta());
-        painelCliente.add(conta);
-
+        painelCabecalho.add(conta);
+        painelCliente.add(painelCabecalho);
+        
+        //Painel de botoes
+        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER));
         //botão de transferência
         JButton op1 = new JButton("Transferência");
-        painelCliente.add(op1);
+        painelBotoes.add(op1);
         op1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent f) {
                 JFrame telaTransferencia = new JFrame("Transferência");
-                telaTransferencia.setSize(500, 600);
+                telaTransferencia.setSize(300, 400);
+                telaTransferencia.setLocationRelativeTo(null);
                 telaTransferencia.setVisible(true);
-
+                
+                //Painel pincipal
                 JPanel painelTrans = new JPanel();
-
+                painelTrans.setLayout(new BoxLayout(painelTrans, BoxLayout.Y_AXIS));
+                
+                //Painel 1
+                JPanel painel01 = new JPanel(new FlowLayout(FlowLayout.CENTER));
                 JLabel transConta = new JLabel("Quem vai receber: [N° Conta]");
-                painelTrans.add(transConta);
+                painel01.add(transConta);
                 JTextField tfContaDestino = new JTextField(15);
-                painelTrans.add(tfContaDestino);
-
+                painel01.add(tfContaDestino);
+                painelTrans.add(painel01);
+                //Painel 02
+                JPanel painel02 = new JPanel(new FlowLayout(FlowLayout.CENTER));
                 JLabel valorTransferido = new JLabel("Valor a ser transferido: ");
-                painelTrans.add(valorTransferido);
+                painel02.add(valorTransferido);
                 JTextField valorTf = new JTextField(15);
-                painelTrans.add(valorTf);
-
+                painel02.add(valorTf);
+                painelTrans.add(painel02);
+                //Painel 03
+                JPanel painel03 = new JPanel(new FlowLayout(FlowLayout.CENTER));
                 JLabel senhaTransferencia = new JLabel("Senha para confirmar a transferência: ");
                 JPasswordField senhaTf = new JPasswordField(15);
-                painelTrans.add(senhaTransferencia);
-                painelTrans.add(senhaTf);
-
+                painel03.add(senhaTransferencia);
+                painel03.add(senhaTf);
+                painelTrans.add(painel03);
+                //Painel 04
+                JPanel painel04 = new JPanel(new FlowLayout(FlowLayout.CENTER));
                 JButton realizaTf = new JButton("Realiza Transferência");
-                painelTrans.add(realizaTf);
+                painel04.add(realizaTf);
                 realizaTf.addActionListener(e->{
                     if(senhaTf.getText().equals(getPassword())){
 
@@ -147,20 +163,22 @@ public class Cliente extends Usuario {
                         return;
                     }
                 });
-
-                telaTransferencia.add(painelTrans);
+                painelTrans.add(painel04);
+                telaTransferencia.setLayout(new BorderLayout());
+                telaTransferencia.add(painelTrans, BorderLayout.CENTER);
 
             }
         });
 
         //botão saldo/extrato
         JButton op2 = new JButton("Ver Saldo e Extrato");
-        painelCliente.add(op2);
+        painelBotoes.add(op2);
         op2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent g) {
                 JFrame telaSaldoExt = new JFrame("Saldo & Extrato");
                 telaSaldoExt.setSize(500, 600);
+                telaSaldoExt.setLocationRelativeTo(null);
                 telaSaldoExt.setVisible(true);
 
                 // cria painel com saldo e extrato
@@ -195,15 +213,15 @@ public class Cliente extends Usuario {
             }
         });
 
-
         //botão investimento renda fixa
         JButton op3 = new JButton("Investimento renda fixa");
-        painelCliente.add(op3);
+        painelBotoes.add(op3);
         op3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent h) {
                 JFrame telaSaldoExt = new JFrame("Renda Fixa");
                 telaSaldoExt.setSize(500, 600);
+                telaSaldoExt.setLocationRelativeTo(null);
                 telaSaldoExt.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // fecha apenas esta janela
                 telaSaldoExt.setVisible(true);
 
@@ -290,12 +308,13 @@ public class Cliente extends Usuario {
 
         //botão investimento renda variável
         JButton op4 = new JButton("Investimento renda variável");
-        painelCliente.add(op4);
+        painelBotoes.add(op4);
         op4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent i) {
                 JFrame telaRendaVar = new JFrame("Investimento em Renda Variável");
                 telaRendaVar.setSize(500, 600);
+                telaRendaVar.setLocationRelativeTo(null);
                 telaRendaVar.setLayout(new GridLayout(3, 1)); // 3 linhas, 1 coluna
 
                 // Mensagem de boas-vindas
@@ -414,21 +433,23 @@ public class Cliente extends Usuario {
 
         //botão solicita crédito
         JButton op5 = new JButton("Solicitar crédito");
-        painelCliente.add(op5);
+        painelBotoes.add(op5);
         op5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent j) {
 
                 JFrame telaSolicitaCredito = new JFrame("Solicitar Crédito");
                 telaSolicitaCredito.setSize(500,600);
+                telaSolicitaCredito.setLocationRelativeTo(null);
                 telaSolicitaCredito.setVisible(true);
 
                 JPanel painelSolicitacao = new JPanel();
+                String texto = "<html><center>Como foi acordardo em nosso último encontro, o CLIENTE, fechou um<br>" +
+                        "acordo com o BANCO para uma Solicitação de Crédito de R$10.000,00 reais.<br>" +
+                        " Esse valor, será parcelado de 48x de R$300,00. Havendo atraso no pagamento, o BANCO <br>" +
+                        " poderá aumentar os juros na próxima cobrança.<center><html>";
                 JLabel contrato = new JLabel("Leia atentamente os termos abaixo: ");
-                JLabel textoContrato = new JLabel("Como foi acordardo em nosso último encontro, o CLIENTE, fechou um" +
-                        "acordo com o BANCO para uma Solicitação de Crédito de R$10.000,00 reais.\n" +
-                        " Esse valor, será parcelado de 48x de R$300,00. Havendo atraso no pagamento, o BANCO poderá aumentar os " +
-                        "juros na próxima cobrança.");
+                JLabel textoContrato = new JLabel(texto);
                 painelSolicitacao.add(contrato);
                 painelSolicitacao.add(textoContrato);
 
@@ -478,17 +499,18 @@ public class Cliente extends Usuario {
 
         //botão para excluir conta do cliente (remoção)
         JButton op6 = new JButton("Excluir minha conta");
-        painelCliente.add(op6);
+        painelBotoes.add(op6);
         op6.addActionListener(e->{
             JFrame telaExclusao = new JFrame("Excluir conta");
             telaExclusao.setSize(500, 600);
+            telaExclusao.setLocationRelativeTo(null);
             telaExclusao.setVisible(true);
 
             JPanel painelEx  = new JPanel();
             JLabel msgBoasVindas = new JLabel("Aqui você pode excluir sua conta!");
-
-            JLabel senhaLabel = new JLabel("Ao inserir a senha e apertar 'Confirmar' você está " +
-                    "excluido permanentemenete sua conta. Tem certeza disso?");
+            String texto = "<html><center>Ao inserir a senha e apertar 'Confirmar' você está<br>" +
+"                    excluido permanentemenete sua conta. Tem certeza disso?<center><html>";
+            JLabel senhaLabel = new JLabel(texto);
 
             JPasswordField senhaField = new JPasswordField(15);
 
@@ -528,21 +550,11 @@ public class Cliente extends Usuario {
             telaExclusao.add(painelEx);
 
         });
-
+        //adiciona botoes ao painel cliente
+        painelCliente.add(painelBotoes);
+   
         janelaCliente.add(painelCliente);
-
-
+        janelaCliente.setVisible(true);
     }
-    @Override
-    public String toString(){
-        return "    {" +
-                "\"tipoDeUsuario\":\"" + getTipoDeUsuario() + "\"," +
-                "\"nome\":\"" + getNome() + "\"," +
-                "\"senha\":\"" + getPassword() + "\"," +
-                "\"numConta\":\"" + getNumConta() + "\"," +
-                "\"cpf\":\"" + getCpf() + "\"," +
-                "\"saldo\":\"" + getSaldoAtual() + "\"," +
-//                "\"extrato\":" + getExtrato() +
-                "}";
-    }
+    
 }
